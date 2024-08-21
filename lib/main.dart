@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:proken_stamp_rally/sheet.dart';
-
+import 'package:geolocator/geolocator.dart';
+import 'dart:async';
 void main() {
   runApp(const MyApp());
 }
@@ -25,6 +26,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Position? currentPosition;
+  @override
+  void initState() {
+    super.initState();
+    print("gcbkjn");
+    Future(() async {
+      LocationPermission permission = await Geolocator.checkPermission();
+      if(permission == LocationPermission.denied){
+        await Geolocator.requestPermission();
+      }
+      Position position = await Geolocator.getCurrentPosition();
+      print("現在位置: 緯度: ${position.latitude}, 経度: ${position.longitude}");
+    });
+
+    // //現在位置を更新し続ける
+    // positionStream = Geolocator.getPositionStream(locationSettings: locationSettings)
+    //         .listen((Position? position) {
+    //       currentPosition = position;
+    //     });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
