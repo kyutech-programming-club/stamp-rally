@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
-            markerId: const MarkerId('marker_id_1'),
+            markerId: const MarkerId('marker_id_2'),
             position: const LatLng(33.895372549525625, 130.84023604777587),
             infoWindow: InfoWindow(
               title: '九州工業大学 戸畑キャンパス記念講堂',
@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
-            markerId: const MarkerId('marker_id_1'),
+            markerId: const MarkerId('marker_id_3'),
             position: const LatLng(33.89500932367183, 130.84079013291944),
             infoWindow: InfoWindow(
               title: 'Interactive Educational Building',
@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
-            markerId: const MarkerId('marker_id_1'),
+            markerId: const MarkerId('marker_id_4'),
             position: const LatLng(33.8946155744977, 130.83856023612142),
             infoWindow: InfoWindow(
               title: '九工大保健センター',
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
-            markerId: const MarkerId('marker_id_1'),
+            markerId: const MarkerId('marker_id_5'),
             position: const LatLng(33.89411685787378, 130.84027543026494),
             infoWindow: InfoWindow(
               title: '九州工業大学 附属図書館',
@@ -99,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
-            markerId: const MarkerId('marker_id_1'),
+            markerId: const MarkerId('marker_id_6'),
             position: const LatLng(33.893457834998614, 130.83918482825203),
             infoWindow: InfoWindow(
               title: '九州工業大学生活協同組合 戸畑食堂',
@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
-            markerId: const MarkerId('marker_id_1'),
+            markerId: const MarkerId('marker_id_7'),
             position: const LatLng(33.89083059857828, 130.83869218826715),
             infoWindow: InfoWindow(
               title: '檣山館',
@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
-            markerId: const MarkerId('marker_id_2'),
+            markerId: const MarkerId('marker_id_8'),
             position: const LatLng(33.89115121480716, 130.83946466447486),
             infoWindow: InfoWindow(
               title: 'GYMLABO',
@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
-            markerId: const MarkerId('marker_id_1'),
+            markerId: const MarkerId('marker_id_9'),
             position: const LatLng(33.891003891463605, 130.8412420164143),
             infoWindow: InfoWindow(
               title: 'ものづくり工房',
@@ -140,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         },
         child: Image.asset('../assets/images/floating_image.png'),
-        backgroundColor: Color(0xFF5592B4),
+        backgroundColor: const Color(0xFF5592B4),
       ),
     );
   }
