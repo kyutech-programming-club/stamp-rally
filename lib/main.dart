@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:proken_stamp_rally/sheet.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,6 +49,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         },
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SheetPage()),
+        );
+      }),
     );
   }
 }
