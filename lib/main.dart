@@ -3,8 +3,26 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:proken_stamp_rally/sheet.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:async';
+import 'dart:math';
 void main() {
   runApp(const MyApp());
+}
+double distanceBetween(
+    double latitude1,
+    double longitude1,
+    double latitude2,
+    double longitude2,
+    ) {
+  final toRadians = (double degree) => degree * pi / 180;
+  final double r = 6378137.0; // 地球の半径
+  final double f1 = toRadians(latitude1);
+  final double f2 = toRadians(latitude2);
+  final double l1 = toRadians(longitude1);
+  final double l2 = toRadians(longitude2);
+  final num a = pow(sin((f2 - f1) / 2), 2);
+  final double b = cos(f1) * cos(f2) * pow(sin((l2 - l1) / 2), 2);
+  final double d = 2 * r * asin(sqrt(a + b));
+  return d;
 }
 
 class MyApp extends StatelessWidget {
@@ -28,23 +46,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Position? currentPosition;
   @override
+  static const stamp_position = [[33.895035283572184, 130.83913257377353],[33.895372549525625, 130.84023604777587],[33.895372549525625, 130.84023604777587],[33.8946155744977, 130.83856023612142],[33.89411685787378, 130.84027543026494],[33.893457834998614, 130.83918482825203],[33.89083059857828, 130.83869218826715],[33.891003891463605, 130.8412420164143]];
   void initState() {
     super.initState();
-    print("gcbkjn");
-    Future(() async {
-      LocationPermission permission = await Geolocator.checkPermission();
-      if(permission == LocationPermission.denied){
-        await Geolocator.requestPermission();
-      }
-      Position position = await Geolocator.getCurrentPosition();
-      print("現在位置: 緯度: ${position.latitude}, 経度: ${position.longitude}");
-    });
-
-    // //現在位置を更新し続ける
-    // positionStream = Geolocator.getPositionStream(locationSettings: locationSettings)
-    //         .listen((Position? position) {
-    //       currentPosition = position;
-    //     });
   }
   @override
   Widget build(BuildContext context) {
@@ -57,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
           target: LatLng(33.8924, 130.8403),
           zoom: 15,
         ),
+
         markers: {
           Marker(
             markerId: const MarkerId('marker_id_1'),
@@ -132,15 +137,53 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SheetPage()),
-          );
-        },
-        child: Image.asset('../assets/images/floating_image.png'),
-        backgroundColor: const Color(0xFF5592B4),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SheetPage()),
+                  );
+            },
+            child: Image.asset('../assets/images/floating_image.png'),
+            backgroundColor: Color(0xFF5592B4),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              Future(() async {
+                LocationPermission permission = await Geolocator.checkPermission();
+                if(permission == LocationPermission.denied){
+                  await Geolocator.requestPermission();
+                }
+                Position position = await Geolocator.getCurrentPosition();
+
+                for (final stamp in  stamp_position)
+                  {
+                    double distncce = distanceBetween(
+                      // 東京駅
+                        position.latitude,
+                        position.longitude,
+                        stamp[0],
+                        stamp[1]
+                    );
+                    if(distncce <= 3)
+                      {
+                       print("スタンプが押せます");
+                      }
+                    else
+                      {
+                        print("距離が遠いです");
+                      }
+
+                  }
+
+              });
+            },
+            child: Text('位置☑'),
+          ),
+        ],
       ),
     );
   }
