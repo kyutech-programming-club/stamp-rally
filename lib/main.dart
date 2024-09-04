@@ -45,8 +45,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Position? currentPosition;
-  @override
-  static const stamp_position = [[33.895035283572184, 130.83913257377353],[33.895372549525625, 130.84023604777587],[33.895372549525625, 130.84023604777587],[33.8946155744977, 130.83856023612142],[33.89411685787378, 130.84027543026494],[33.893457834998614, 130.83918482825203],[33.89083059857828, 130.83869218826715],[33.891003891463605, 130.8412420164143]];
+  static const stamp_position = [[33.895035283572184, 130.83913257377353],[33.895372549525625, 130.84023604777587],[33.89500932367183, 130.84079013291944],[33.894275995781406, 130.8386275132089],[33.894183902536696, 130.8400911980695],[33.893457834998614, 130.83918482825203],[33.8904262359517, 130.83873983917533],[33.89094986326708, 130.8392869599504],[33.89082184819561, 130.8411399411388]];
   void initState() {
     super.initState();
   }
@@ -116,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Marker(
 
             markerId: const MarkerId('marker_id_4'),
-            position: const LatLng(33.8946155744977, 130.83856023612142),
+            position: const LatLng(33.894275995781406, 130.8386275132089),
             infoWindow: InfoWindow(
               title: '九工大保健センター',
               onTap: () {},
@@ -125,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Marker(
 
             markerId: const MarkerId('marker_id_5'),
-            position: const LatLng(33.89411685787378, 130.84027543026494),
+            position: const LatLng(33.894183902536696, 130.8400911980695),
             infoWindow: InfoWindow(
               title: '九州工業大学 附属図書館',
               onTap: () {},
@@ -142,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Marker(
 
             markerId: const MarkerId('marker_id_7'),
-            position: const LatLng(33.89083059857828, 130.83869218826715),
+            position: const LatLng(33.8904262359517, 130.83873983917533),
             infoWindow: InfoWindow(
               title: '檣山館',
               onTap: () {},
@@ -151,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Marker(
 
             markerId: const MarkerId('marker_id_8'),
-            position: const LatLng(33.89115121480716, 130.83946466447486),
+            position: const LatLng(33.89094986326708, 130.8392869599504),
             infoWindow: InfoWindow(
               title: 'GYMLABO',
               onTap: () {},
@@ -160,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Marker(
 
             markerId: const MarkerId('marker_id_9'),
-            position: const LatLng(33.891003891463605, 130.8412420164143),
+            position: const LatLng(33.89082184819561, 130.8411399411388),
             infoWindow: InfoWindow(
               title: 'ものづくり工房',
               onTap: () {},
@@ -202,6 +201,28 @@ class _MyHomePageState extends State<MyHomePage> {
                     if(distncce <= 3)
                       {
                        print("スタンプが押せます");
+                        showDialog(
+                          context: context, 
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              titlePadding: EdgeInsets.zero,
+                              title : Image.network(
+                                '#',
+                                height: 200,  //写真の高さ指定
+                                fit: BoxFit.cover,
+                              ),
+                              content: Text("テキストテキスト"),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('OK'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       }
                     else
                       {
