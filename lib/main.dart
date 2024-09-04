@@ -55,6 +55,31 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('プロ研スタンプラリー'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text("Notifications"),
+                content: const Text("Do you allow notifications?"),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context, 'Approve');
+                      // Add any action you want to take on approval here
+                    },
+                    child: const Text('Approve'),
+                  ),
+                ],
+              ),
+            ),
+            child: const Text('Show Dialog'),
+          ),
+        ],
       ),
       body: GoogleMap(
         initialCameraPosition: const CameraPosition(
@@ -65,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
         markers: {
           Marker(
             markerId: const MarkerId('marker_id_1'),
-            position: const LatLng(33.895035283572184, 130.83913257377353),
+            position: const LatLng(33.894089406192165, 130.83900584969544),
             infoWindow: InfoWindow(
               title: 'C-2C',
               onTap: () {},
@@ -80,14 +105,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
+
             markerId: const MarkerId('marker_id_3'),
             position: const LatLng(33.89500932367183, 130.84079013291944),
             infoWindow: InfoWindow(
-              title: 'Interactive Educational Building',
+              title: '未来型インタラクティブ教育棟',
               onTap: () {},
             ),
           ),
           Marker(
+
             markerId: const MarkerId('marker_id_4'),
             position: const LatLng(33.8946155744977, 130.83856023612142),
             infoWindow: InfoWindow(
@@ -96,6 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
+
             markerId: const MarkerId('marker_id_5'),
             position: const LatLng(33.89411685787378, 130.84027543026494),
             infoWindow: InfoWindow(
@@ -112,6 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
+
             markerId: const MarkerId('marker_id_7'),
             position: const LatLng(33.89083059857828, 130.83869218826715),
             infoWindow: InfoWindow(
@@ -120,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
+
             markerId: const MarkerId('marker_id_8'),
             position: const LatLng(33.89115121480716, 130.83946466447486),
             infoWindow: InfoWindow(
@@ -128,6 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
+
             markerId: const MarkerId('marker_id_9'),
             position: const LatLng(33.891003891463605, 130.8412420164143),
             infoWindow: InfoWindow(

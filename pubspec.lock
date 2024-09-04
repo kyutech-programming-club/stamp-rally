@@ -41,6 +41,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.18.0"
+
   crypto:
     dependency: transitive
     description:
@@ -112,6 +113,7 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+
   geolocator:
     dependency: "direct main"
     description:
@@ -309,6 +311,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
+
   sprintf:
     dependency: transitive
     description:
@@ -365,6 +368,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.2"
+
   typed_data:
     dependency: transitive
     description:
