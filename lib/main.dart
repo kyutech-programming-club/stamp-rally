@@ -4,15 +4,17 @@ import 'package:proken_stamp_rally/sheet.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:async';
 import 'dart:math';
+
 void main() {
   runApp(const MyApp());
 }
+
 double distanceBetween(
-    double latitude1,
-    double longitude1,
-    double latitude2,
-    double longitude2,
-    ) {
+  double latitude1,
+  double longitude1,
+  double latitude2,
+  double longitude2,
+) {
   final toRadians = (double degree) => degree * pi / 180;
   final double r = 6378137.0; // 地球の半径
   final double f1 = toRadians(latitude1);
@@ -45,38 +47,77 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Position? currentPosition;
-  static const stamp_position = [[33.895035283572184, 130.83913257377353],[33.895372549525625, 130.84023604777587],[33.89500932367183, 130.84079013291944],[33.894275995781406, 130.8386275132089],[33.894183902536696, 130.8400911980695],[33.893457834998614, 130.83918482825203],[33.8904262359517, 130.83873983917533],[33.89094986326708, 130.8392869599504],[33.89082184819561, 130.8411399411388]];
+  static const stamp_position = [
+    [33.895035283572184, 130.83913257377353],
+    [33.895372549525625, 130.84023604777587],
+    [33.89500932367183, 130.84079013291944],
+    [33.894275995781406, 130.8386275132089],
+    [33.894183902536696, 130.8400911980695],
+    [33.893457834998614, 130.83918482825203],
+    [33.8904262359517, 130.83873983917533],
+    [33.89094986326708, 130.8392869599504],
+    [33.89082184819561, 130.8411399411388]
+  ];
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('プロ研スタンプラリー'),
+        title: const Text(
+          'プログラミング研究会 スタンプラリー',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Color(0xFF5592B4),
         actions: <Widget>[
-          TextButton(
+          ElevatedButton(
             onPressed: () => showDialog(
               context: context,
               builder: (BuildContext context) => AlertDialog(
-                title: const Text("Notifications"),
-                content: const Text("Do you allow notifications?"),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    GridView.count(
+                      padding: const EdgeInsets.all(4),
+                      crossAxisSpacing: 4,
+                      mainAxisSpacing: 4,
+                      crossAxisCount: 3,
+                      shrinkWrap: true, // グリッドの高さを内容に合わせる
+                      children: List.generate(
+                          9,
+                          (index) => Container(
+                                padding: const EdgeInsets.all(20),
+                                child: Center(
+                                  child: const Text('STAMP'),
+                                ),
+                                color: Color(0xFF5592B4),
+                              )),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      "ビンゴ出来たら 景品ゲット!!\nビンゴすればするほど景品が豪華になるかも!?",
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () => Navigator.pop(context, 'Cancel'),
-                    child: const Text('Cancel'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context, 'Approve');
-                      // Add any action you want to take on approval here
-                    },
-                    child: const Text('Approve'),
+                    child: const Text(
+                      '戻る',
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ],
               ),
             ),
-            child: const Text('Show Dialog'),
+            child: const Text(
+              'スタンプラリー\nシートはこちら',
+              style: TextStyle(color: Color(0xFF5592B4)),
+            ),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
           ),
         ],
       ),
@@ -85,7 +126,6 @@ class _MyHomePageState extends State<MyHomePage> {
           target: LatLng(33.8924, 130.8403),
           zoom: 15,
         ),
-
         markers: {
           Marker(
             markerId: const MarkerId('marker_id_1'),
@@ -104,7 +144,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
-
             markerId: const MarkerId('marker_id_3'),
             position: const LatLng(33.89500932367183, 130.84079013291944),
             infoWindow: InfoWindow(
@@ -113,7 +152,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
-
             markerId: const MarkerId('marker_id_4'),
             position: const LatLng(33.894275995781406, 130.8386275132089),
             infoWindow: InfoWindow(
@@ -122,7 +160,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
-
             markerId: const MarkerId('marker_id_5'),
             position: const LatLng(33.894183902536696, 130.8400911980695),
             infoWindow: InfoWindow(
@@ -139,7 +176,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
-
             markerId: const MarkerId('marker_id_7'),
             position: const LatLng(33.8904262359517, 130.83873983917533),
             infoWindow: InfoWindow(
@@ -148,7 +184,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
-
             markerId: const MarkerId('marker_id_8'),
             position: const LatLng(33.89094986326708, 130.8392869599504),
             infoWindow: InfoWindow(
@@ -157,7 +192,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Marker(
-
             markerId: const MarkerId('marker_id_9'),
             position: const LatLng(33.89082184819561, 130.8411399411388),
             infoWindow: InfoWindow(
@@ -172,68 +206,82 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           FloatingActionButton(
             onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SheetPage()),
-                  );
-            },
-            child: Image.asset('../assets/images/floating_image.png'),
-            backgroundColor: Color(0xFF5592B4),
-          ),
-          FloatingActionButton(
-            onPressed: () {
               Future(() async {
-                LocationPermission permission = await Geolocator.checkPermission();
-                if(permission == LocationPermission.denied){
+                LocationPermission permission =
+                    await Geolocator.checkPermission();
+                if (permission == LocationPermission.denied) {
                   await Geolocator.requestPermission();
                 }
                 Position position = await Geolocator.getCurrentPosition();
 
-                for (final stamp in  stamp_position)
-                  {
-                    double distncce = distanceBetween(
+                for (final stamp in stamp_position) {
+                  double distncce = distanceBetween(
                       // 東京駅
-                        position.latitude,
-                        position.longitude,
-                        stamp[0],
-                        stamp[1]
-                    );
-                    if(distncce <= 3)
-                      {
-                       print("スタンプが押せます");
-                        showDialog(
-                          context: context, 
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              titlePadding: EdgeInsets.zero,
-                              title : Image.network(
-                                '#',
-                                height: 200,  //写真の高さ指定
-                                fit: BoxFit.cover,
-                              ),
-                              content: Text("テキストテキスト"),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text('OK'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
+                      position.latitude,
+                      position.longitude,
+                      stamp[0],
+                      stamp[1]);
+                  if (distncce <= 3) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                          content: Stack(
+                            alignment: Alignment.topCenter,
+                            children: [
+                              Image.asset('assets/images/star.png'),
+                              Positioned(
+                                top: 80,
+                                child: Text(
+                                  'スタンプ\nGET',
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 30,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ],
-                            );
-                          },
+                              ),
+                            ],
+                          ),
                         );
-                      }
-                    else
-                      {
-                        print("距離が遠いです");
-                      }
-
+                      },
+                    );
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                          content: Stack(
+                            alignment: Alignment.topCenter,
+                            children: [
+                              Image.asset('assets/images/rectangle.png'),
+                              Positioned(
+                                top: 80,
+                                child: Text(
+                                  '!!!!!!!!!!!!!!!!!!!\n\n目的地から離れています\nもう少し近づいてください\n\n!!!!!!!!!!!!!!!!!!!',
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
                   }
-
+                }
               });
             },
-            child: Text('位置☑'),
+            child: Image.asset('../assets/images/floating_image.png'),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
           ),
         ],
       ),
