@@ -77,28 +77,117 @@ class _MyHomePageState extends State<MyHomePage> {
               context: context,
               builder: (BuildContext context) => AlertDialog(
                 content: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    GridView.count(
-                      padding: const EdgeInsets.all(4),
-                      crossAxisSpacing: 4,
-                      mainAxisSpacing: 4,
-                      crossAxisCount: 3,
-                      shrinkWrap: true, // グリッドの高さを内容に合わせる
-                      children: List.generate(
-                          9,
-                          (index) => Container(
-                                padding: const EdgeInsets.all(20),
-                                child: Center(
-                                  child: const Text('STAMP'),
-                                ),
-                                color: Color(0xFF5592B4),
-                              )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            Image.asset('assets/images/stamp_gymlabo.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                        const SizedBox(width: 5),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            Image.asset('assets/images/stamp_cafeteria.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                        const SizedBox(width: 5),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            Image.asset('assets/images/stamp_factory.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            Image.asset('assets/images/stamp_library.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                        const SizedBox(width: 5),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            Image.asset('assets/images/stamp_proken.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                        const SizedBox(width: 5),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            Image.asset('assets/images/stamp_interactive.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            Image.asset('assets/images/stamp_gym.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                        const SizedBox(width: 5),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            Image.asset('assets/images/stamp_healthCenter.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                        const SizedBox(width: 5),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            Image.asset('assets/images/stamp_auditorium.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
                     const Text(
-                      "ビンゴ出来たら 景品ゲット!!\nビンゴすればするほど景品が豪華になるかも!?",
+                      'ビンゴできたら景品ゲット！！\nビンゴすればするほど景品が豪華になるかも！？',
                       textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16),
                     ),
                   ],
                 ),
@@ -201,89 +290,66 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         },
       ),
-      floatingActionButton: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          FloatingActionButton(
-            onPressed: () {
-              Future(() async {
-                LocationPermission permission =
-                    await Geolocator.checkPermission();
-                if (permission == LocationPermission.denied) {
-                  await Geolocator.requestPermission();
-                }
-                Position position = await Geolocator.getCurrentPosition();
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Future(() async {
+            LocationPermission permission = await Geolocator.checkPermission();
+            if (permission == LocationPermission.denied) {
+              await Geolocator.requestPermission();
+            }
+            Position position = await Geolocator.getCurrentPosition();
 
-                for (final stamp in stamp_position) {
-                  double distncce = distanceBetween(
-                      // 東京駅
-                      position.latitude,
-                      position.longitude,
-                      stamp[0],
-                      stamp[1]);
-                  if (distncce <= 3) {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          backgroundColor: Colors.transparent,
-                          elevation: 0,
-                          content: Stack(
-                            alignment: Alignment.topCenter,
-                            children: [
-                              Image.asset('assets/images/star.png'),
-                              Positioned(
-                                top: 80,
-                                child: Text(
-                                  'スタンプ\nGET',
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 30,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+            for (final stamp in stamp_position) {
+              double distncce = distanceBetween(
+                  // 東京駅
+                  position.latitude,
+                  position.longitude,
+                  stamp[0],
+                  stamp[1]);
+              if (distncce <= 3) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: Color(0xFF5592B4),
+                      title: Image.asset('images/dialog_check.png',
+                          width: 100, height: 100),
+                      content: Text(
+                        'スタンプ\nGET',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                      ),
                     );
-                  } else {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          backgroundColor: Colors.transparent,
-                          elevation: 0,
-                          content: Stack(
-                            alignment: Alignment.topCenter,
-                            children: [
-                              Image.asset('assets/images/rectangle.png'),
-                              Positioned(
-                                top: 80,
-                                child: Text(
-                                  '!!!!!!!!!!!!!!!!!!!\n\n目的地から離れています\nもう少し近づいてください\n\n!!!!!!!!!!!!!!!!!!!',
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
+                  },
+                );
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                        backgroundColor: Color(0xFF5592B4),
+                        title: Image.asset('images/dialog_error.png',
+                            width: 100, height: 100),
+                        content: Text(
+                          '目的地から離れています\nもう少し近づいてください',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
                           ),
-                        );
-                      },
-                    );
-                  }
-                }
-              });
-            },
-            child: Image.asset('../assets/images/floating_image.png'),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-          ),
-        ],
+                        ));
+                  },
+                );
+              }
+            }
+          });
+        },
+        child: Image.asset('images/floating_image.png'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
     );
   }
