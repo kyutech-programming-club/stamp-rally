@@ -1,10 +1,1 @@
-{
-  "hosting": {
-    "public": "build/web",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
-  }
-}
+{"hosting":{"public":"build/web","ignore":["firebase.json","**/.*","**/node_modules/**"]},"flutter":{"platforms":{"android":{"default":{"projectId":"proken-stamp-rally-48913","appId":"1:481583997229:android:a964d68f914747b2d0b3a4","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"proken-stamp-rally-48913","configurations":{"android":"1:481583997229:android:a964d68f914747b2d0b3a4","ios":"1:481583997229:ios:caf469202a3133f1d0b3a4","macos":"1:481583997229:ios:caf469202a3133f1d0b3a4","web":"1:481583997229:web:3f9d4a7b807c6745d0b3a4","windows":"1:481583997229:web:62a37779ac112520d0b3a4"}}}}}}

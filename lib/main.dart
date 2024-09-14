@@ -4,9 +4,20 @@ import 'package:proken_stamp_rally/sheet.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:async';
 import 'dart:math';
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
+
 double distanceBetween(
     double latitude1,
     double longitude1,
@@ -23,6 +34,37 @@ double distanceBetween(
   final double b = cos(f1) * cos(f2) * pow(sin((l2 - l1) / 2), 2);
   final double d = 2 * r * asin(sqrt(a + b));
   return d;
+}
+void Stamp(context,document)
+{
+
+  FirebaseFirestore.instance
+      .collection('dream')
+      .doc()
+      .set(document);
+  print("スタンプが押せます");
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        titlePadding: EdgeInsets.zero,
+        title : Image.network(
+          '#',
+          height: 200,  //写真の高さ指定
+          fit: BoxFit.cover,
+        ),
+        content: Text("テキストテキスト"),
+        actions: <Widget>[
+          TextButton(
+            child: Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -44,10 +86,45 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool isSignedIn = false; // サインイン状態の管理
+  String? uid;
   Position? currentPosition;
   static const stamp_position = [[33.895035283572184, 130.83913257377353],[33.895372549525625, 130.84023604777587],[33.89500932367183, 130.84079013291944],[33.894275995781406, 130.8386275132089],[33.894183902536696, 130.8400911980695],[33.893457834998614, 130.83918482825203],[33.8904262359517, 130.83873983917533],[33.89094986326708, 130.8392869599504],[33.89082184819561, 130.8411399411388]];
   void initState() {
     super.initState();
+    signInAnonymously();
+  }
+
+  Future<void> signInAnonymously() async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
+      uid = userCredential.user?.uid; // サインイン成功後にUIDを取得
+      print("匿名でサインインしました: $uid");
+      setState(() {
+        isSignedIn = true; // サインインが完了したらフラグを更新
+      });
+    } catch (e) {
+      print("サインインエラー: $e");
+    }
+  }
+
+  Future<void> saveUserData(String content) async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      uid = currentUser.uid; // サインイン後にUIDをセット
+      print("ユーザーUID: $uid");
+
+      await FirebaseFirestore.instance.collection('dream').add({
+        'content': content,
+        'uid': uid,
+        'createdAt': Timestamp.now(),
+      });
+      print("データが保存されました: $content");
+    } else {
+      print('ユーザーがサインインしていません');
+      await signInAnonymously(); // 再度サインインを試みる
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -80,93 +157,138 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: GoogleMap(
-        initialCameraPosition: const CameraPosition(
-          target: LatLng(33.8924, 130.8403),
-          zoom: 15,
-        ),
+      body: Column(
+        children: [
+          Expanded(
+            child: isSignedIn && uid != null
+                ? StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('dream')
+                  .where('uid', isEqualTo: uid) // 取得したUIDでフィルタリング
+                  .snapshots(),
+              builder: (context, snapshots) {
+                if (snapshots.hasError) {
+                  return const Center(child: Text("エラーが発生しました"));
+                }
+                if (snapshots.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator()); // ローディング中
+                }
 
-        markers: {
-          Marker(
-            markerId: const MarkerId('marker_id_1'),
-            position: const LatLng(33.894089406192165, 130.83900584969544),
-            infoWindow: InfoWindow(
-              title: 'C-2C',
-              onTap: () {},
-            ),
-          ),
-          Marker(
-            markerId: const MarkerId('marker_id_2'),
-            position: const LatLng(33.895372549525625, 130.84023604777587),
-            infoWindow: InfoWindow(
-              title: '九州工業大学 戸畑キャンパス記念講堂',
-              onTap: () {},
-            ),
-          ),
-          Marker(
+                if (!snapshots.hasData || snapshots.data!.docs.isEmpty) {
+                  return const Center(child: Text("データがありません"));
+                }
 
-            markerId: const MarkerId('marker_id_3'),
-            position: const LatLng(33.89500932367183, 130.84079013291944),
-            infoWindow: InfoWindow(
-              title: '未来型インタラクティブ教育棟',
-              onTap: () {},
-            ),
+                final queryDocSnapshot = snapshots.data!.docs; // 取得したデータリスト
+                return ListView.builder(
+                  itemCount: queryDocSnapshot.length,
+                  itemBuilder: (context, index) {
+                    final data = queryDocSnapshot[index].data() as Map<String, dynamic>;
+                    return ListTile(
+                      title: Text(data['content'] ?? '内容がありません'),
+                    );
+                  },
+                );
+              },
+            )
+                : const Center(child: CircularProgressIndicator()), // ローディング表示
           ),
-          Marker(
 
-            markerId: const MarkerId('marker_id_4'),
-            position: const LatLng(33.894275995781406, 130.8386275132089),
-            infoWindow: InfoWindow(
-              title: '九工大保健センター',
-              onTap: () {},
-            ),
-          ),
-          Marker(
 
-            markerId: const MarkerId('marker_id_5'),
-            position: const LatLng(33.894183902536696, 130.8400911980695),
-            infoWindow: InfoWindow(
-              title: '九州工業大学 附属図書館',
-              onTap: () {},
-            ),
-          ),
-          Marker(
-            markerId: const MarkerId('marker_id_6'),
-            position: const LatLng(33.893457834998614, 130.83918482825203),
-            infoWindow: InfoWindow(
-              title: '九州工業大学生活協同組合 戸畑食堂',
-              onTap: () {},
-            ),
-          ),
-          Marker(
+          Expanded(
+            flex: 2, // GoogleMapのスペースを調整
+            child: GoogleMap(
+              initialCameraPosition: const CameraPosition(
+                target: LatLng(33.8924, 130.8403),
+                zoom: 15,
+              ),
+              markers: {
+                Marker(
+                  markerId: const MarkerId('marker_id_1'),
+                  position: const LatLng(33.894089406192165, 130.83900584969544),
+                  infoWindow: InfoWindow(
+                    title: 'C-2C',
+                    onTap: () {},
+                  ),
+                ),
+                Marker(
+                  markerId: const MarkerId('marker_id_2'),
+                  position: const LatLng(33.895372549525625, 130.84023604777587),
+                  infoWindow: InfoWindow(
+                    title: '九州工業大学 戸畑キャンパス記念講堂',
+                    onTap: () {},
+                  ),
+                ),
+                Marker(
 
-            markerId: const MarkerId('marker_id_7'),
-            position: const LatLng(33.8904262359517, 130.83873983917533),
-            infoWindow: InfoWindow(
-              title: '檣山館',
-              onTap: () {},
-            ),
-          ),
-          Marker(
+                  markerId: const MarkerId('marker_id_3'),
+                  position: const LatLng(33.89500932367183, 130.84079013291944),
+                  infoWindow: InfoWindow(
+                    title: '未来型インタラクティブ教育棟',
+                    onTap: () {},
+                  ),
+                ),
+                Marker(
 
-            markerId: const MarkerId('marker_id_8'),
-            position: const LatLng(33.89094986326708, 130.8392869599504),
-            infoWindow: InfoWindow(
-              title: 'GYMLABO',
-              onTap: () {},
-            ),
-          ),
-          Marker(
+                  markerId: const MarkerId('marker_id_4'),
+                  position: const LatLng(33.894275995781406, 130.8386275132089),
+                  infoWindow: InfoWindow(
+                    title: '九工大保健センター',
+                    onTap: () {},
+                  ),
+                ),
+                Marker(
 
-            markerId: const MarkerId('marker_id_9'),
-            position: const LatLng(33.89082184819561, 130.8411399411388),
-            infoWindow: InfoWindow(
-              title: 'ものづくり工房',
-              onTap: () {},
+                  markerId: const MarkerId('marker_id_5'),
+                  position: const LatLng(33.894183902536696, 130.8400911980695),
+                  infoWindow: InfoWindow(
+                    title: '九州工業大学 附属図書館',
+                    onTap: () {},
+                  ),
+                ),
+                Marker(
+                  markerId: const MarkerId('marker_id_6'),
+                  position: const LatLng(33.893457834998614, 130.83918482825203),
+                  infoWindow: InfoWindow(
+                    title: '九州工業大学生活協同組合 戸畑食堂',
+                    onTap: () {},
+                  ),
+                ),
+                Marker(
+
+                  markerId: const MarkerId('marker_id_7'),
+                  position: const LatLng(33.8904262359517, 130.83873983917533),
+                  infoWindow: InfoWindow(
+                    title: '檣山館',
+                    onTap: () {},
+                  ),
+                ),
+                Marker(
+
+                  markerId: const MarkerId('marker_id_8'),
+                  position: const LatLng(33.89094986326708, 130.8392869599504),
+                  infoWindow: InfoWindow(
+                    title: 'GYMLABO',
+                    onTap: () {},
+                  ),
+                ),
+                Marker(
+
+                  markerId: const MarkerId('marker_id_9'),
+                  position: const LatLng(33.89082184819561, 130.8411399411388),
+                  infoWindow: InfoWindow(
+                    title: 'ものづくり工房',
+                    onTap: () {},
+                  ),
+                ),
+              },
             ),
           ),
-        },
+        ],
       ),
+
+
+
+
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -183,46 +305,30 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () {
               Future(() async {
+                await saveUserData("新しいデータ");
                 LocationPermission permission = await Geolocator.checkPermission();
                 if(permission == LocationPermission.denied){
                   await Geolocator.requestPermission();
                 }
                 Position position = await Geolocator.getCurrentPosition();
-
+               int i = 0;
                 for (final stamp in  stamp_position)
                   {
+                    i= i +1;
                     double distncce = distanceBetween(
-                      // 東京駅
                         position.latitude,
                         position.longitude,
                         stamp[0],
                         stamp[1]
+
                     );
-                    if(distncce <= 3)
+                    if(distncce <= 5)
                       {
-                       print("スタンプが押せます");
-                        showDialog(
-                          context: context, 
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              titlePadding: EdgeInsets.zero,
-                              title : Image.network(
-                                '#',
-                                height: 200,  //写真の高さ指定
-                                fit: BoxFit.cover,
-                              ),
-                              content: Text("テキストテキスト"),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text('OK'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                          final document = <String, dynamic>{
+                          'context' : "a",
+                          'createdAt': Timestamp.fromDate(DateTime.now()),
+                        };
+                        Stamp(context,document);
                       }
                     else
                       {
