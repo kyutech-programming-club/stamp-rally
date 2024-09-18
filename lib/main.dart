@@ -14,7 +14,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   runApp(const MyApp());
 }
 
@@ -69,7 +68,6 @@ void Stamp(context,document)
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -77,18 +75,17 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
 class _MyHomePageState extends State<MyHomePage> {
   bool isSignedIn = false; // サインイン状態の管理
   String? uid;
   Position? currentPosition;
+  double? myx;
+  double? myy;
   static const stamp_position = [[33.895035283572184, 130.83913257377353],[33.895372549525625, 130.84023604777587],[33.89500932367183, 130.84079013291944],[33.894275995781406, 130.8386275132089],[33.894183902536696, 130.8400911980695],[33.893457834998614, 130.83918482825203],[33.8904262359517, 130.83873983917533],[33.89094986326708, 130.8392869599504],[33.89082184819561, 130.8411399411388]];
   void initState() {
     super.initState();
@@ -280,15 +277,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     onTap: () {},
                   ),
                 ),
+                Marker(
+                  markerId: const MarkerId('marker_id_10'),
+                  position:LatLng(myx??0,myy??0),
+                  infoWindow: InfoWindow(
+                    title: '自分',
+                    onTap: () {},
+                  ),
+                ),
               },
             ),
           ),
         ],
       ),
-
-
-
-
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -305,12 +306,18 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () {
               Future(() async {
-                await saveUserData("新しいデータ");
                 LocationPermission permission = await Geolocator.checkPermission();
                 if(permission == LocationPermission.denied){
                   await Geolocator.requestPermission();
                 }
                 Position position = await Geolocator.getCurrentPosition();
+                setState(() {
+                  myx =  position.latitude;
+                  myy =  position.longitude;
+                });
+                print(myx);
+                print(myy);
+
                int i = 0;
                 for (final stamp in  stamp_position)
                   {
@@ -320,10 +327,41 @@ class _MyHomePageState extends State<MyHomePage> {
                         position.longitude,
                         stamp[0],
                         stamp[1]
-
                     );
-                    if(distncce <= 5)
+                    if(distncce >= 5)
                       {
+                        if(i == 8)
+                          {
+                            await saveUserData("a");
+                          }
+                        else if(i == 1)
+                          {
+                            await saveUserData("b");
+                          }
+                        else if(i == 2)
+                        {
+                          await saveUserData("c");
+                        }
+                        else if(i == 3)
+                        {
+                          await saveUserData("d");
+                        }
+                        else if(i == 4)
+                        {
+                          await saveUserData("e");
+                        }
+                        else if(i == 5)
+                        {
+                          await saveUserData("f");
+                        }
+                        else if(i == 6)
+                        {
+                          await saveUserData("g");
+                        }
+                        else if(i == 7)
+                        {
+                          await saveUserData("h");
+                        }
                           final document = <String, dynamic>{
                           'context' : "a",
                           'createdAt': Timestamp.fromDate(DateTime.now()),
