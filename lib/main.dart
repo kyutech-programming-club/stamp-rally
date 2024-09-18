@@ -60,7 +60,94 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
   void initState() {
     super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) => _showStartDialog(),
+    );
   }
+
+  void _showStartDialog() {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Image.asset('images/startDialog_pin.png', width: 55, height: 55),
+        content: Text(
+          "マップにある\nピンの近くに行ったら\n右下のボタンを押して\nスタンプをゲット!",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Color(0xFFD9D9D9)),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+              showSecondDialog(context);
+            },
+            child: Text('次へ'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void showSecondDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Image.asset('images/startDialog_checkCircle.png', width: 55, height: 55),
+        content: Text(
+          "たまったスタンプは\n右上のボタンを押して\n確認できるよ",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Color(0xFFD9D9D9)),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+              showThirdDialog(context); 
+            },
+            child: Text('次へ'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void showThirdDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Image.asset('images/startDialog_error.png', width: 55, height: 55),
+        content: Text(
+          '位置情報の取得を\n許可してね',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
+        ),
+        actions: [
+          TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Color(0xFFD9D9D9)),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('スタート'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
