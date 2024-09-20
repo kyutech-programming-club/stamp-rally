@@ -49,16 +49,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Position? currentPosition;
   static const stamp_position = [
     [33.895035283572184, 130.83913257377353],
-    [33.895372549525625, 130.84023604777587],
-    [33.89500932367183, 130.84079013291944],
+    [33.89525768656983, 130.84004413557133],
+    [33.89493917280121, 130.84044040532547],
     [33.894275995781406, 130.8386275132089],
     [33.894183902536696, 130.8400911980695],
-    [33.893457834998614, 130.83918482825203],
-    [33.8904262359517, 130.83873983917533],
+    [33.89358469379048, 130.83942255971263],
+    [33.890398261467446, 130.83876355969159],
     [33.89094986326708, 130.8392869599504],
     [33.89082184819561, 130.8411399411388]
   ];
-void initState() {
+  void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback(
       (_) => _showStartDialog(),
@@ -66,87 +66,90 @@ void initState() {
   }
 
   void _showStartDialog() {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Image.asset('images/startDialog_pin.png', width: 55, height: 55),
-        content: Text(
-          "マップにある\nピンの近くに行ったら\n右下のボタンを押して\nスタンプをゲット!",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20),
-        ),
-        actions: <Widget>[
-          TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Color(0xFFD9D9D9)),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-              showSecondDialog(context);
-            },
-            child: Text('次へ'),
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title:
+              Image.asset('images/startDialog_pin.png', width: 55, height: 55),
+          content: Text(
+            "マップにある\nピンの近くに行ったら\n右下のボタンを押して\nスタンプをゲット!",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
           ),
-        ],
-      );
-    },
-  );
-}
+          actions: <Widget>[
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Color(0xFFD9D9D9)),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                showSecondDialog(context);
+              },
+              child: Text('次へ'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
-void showSecondDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Image.asset('images/startDialog_checkCircle.png', width: 55, height: 55),
-        content: Text(
-          "たまったスタンプは\n右上のボタンを押して\n確認できるよ",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20),
-        ),
-        actions: <Widget>[
-          TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Color(0xFFD9D9D9)),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-              showThirdDialog(context); 
-            },
-            child: Text('次へ'),
+  void showSecondDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Image.asset('images/startDialog_checkCircle.png',
+              width: 55, height: 55),
+          content: Text(
+            "たまったスタンプは\n右上のボタンを押して\n確認できるよ",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
           ),
-        ],
-      );
-    },
-  );
-}
+          actions: <Widget>[
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Color(0xFFD9D9D9)),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                showThirdDialog(context);
+              },
+              child: Text('次へ'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
-void showThirdDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Image.asset('images/startDialog_error.png', width: 55, height: 55),
-        content: Text(
-          '位置情報の取得を\n許可してね',
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20),
-        ),
-        actions: [
-          TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Color(0xFFD9D9D9)),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('スタート'),
+  void showThirdDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Image.asset('images/startDialog_error.png',
+              width: 55, height: 55),
+          content: Text(
+            '位置情報の取得を\n許可してね',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
           ),
-        ],
-      );
-    },
-  );
-}
+          actions: [
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Color(0xFFD9D9D9)),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('スタート'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -307,23 +310,74 @@ void showThirdDialog(BuildContext context) {
             position: const LatLng(33.894089406192165, 130.83900584969544),
             infoWindow: InfoWindow(
               title: 'C-2C',
-              onTap: () {},
+              snippet: 'タップでヒント',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Image.asset('#', width: 100, height: 100),
+                      content: Text(
+                        '#',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
           Marker(
             markerId: const MarkerId('marker_id_2'),
-            position: const LatLng(33.895372549525625, 130.84023604777587),
+            position: const LatLng(33.89525768656983, 130.84004413557133),
             infoWindow: InfoWindow(
               title: '九州工業大学 戸畑キャンパス記念講堂',
-              onTap: () {},
+              snippet: 'タップでヒント',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Image.asset('#', width: 100, height: 100),
+                      content: Text(
+                        '#',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
           Marker(
             markerId: const MarkerId('marker_id_3'),
-            position: const LatLng(33.89500932367183, 130.84079013291944),
+            position: const LatLng(33.89493917280121, 130.84044040532547),
             infoWindow: InfoWindow(
               title: '未来型インタラクティブ教育棟',
-              onTap: () {},
+              snippet: 'タップでヒント',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Image.asset('#', width: 100, height: 100),
+                      content: Text(
+                        '#',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
           Marker(
@@ -331,7 +385,24 @@ void showThirdDialog(BuildContext context) {
             position: const LatLng(33.894275995781406, 130.8386275132089),
             infoWindow: InfoWindow(
               title: '九工大保健センター',
-              onTap: () {},
+              snippet: 'タップでヒント',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Image.asset('#', width: 100, height: 100),
+                      content: Text(
+                        '#',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
           Marker(
@@ -339,23 +410,74 @@ void showThirdDialog(BuildContext context) {
             position: const LatLng(33.894183902536696, 130.8400911980695),
             infoWindow: InfoWindow(
               title: '九州工業大学 附属図書館',
-              onTap: () {},
+              snippet: 'タップでヒント',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Image.asset('#', width: 100, height: 100),
+                      content: Text(
+                        '#',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
           Marker(
             markerId: const MarkerId('marker_id_6'),
-            position: const LatLng(33.893457834998614, 130.83918482825203),
+            position: const LatLng(33.89358469379048, 130.83942255971263),
             infoWindow: InfoWindow(
               title: '九州工業大学生活協同組合 戸畑食堂',
-              onTap: () {},
+              snippet: 'タップでヒント',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Image.asset('#', width: 100, height: 100),
+                      content: Text(
+                        '#',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
           Marker(
             markerId: const MarkerId('marker_id_7'),
-            position: const LatLng(33.8904262359517, 130.83873983917533),
+            position: const LatLng(33.890398261467446, 130.83876355969159),
             infoWindow: InfoWindow(
               title: '檣山館',
-              onTap: () {},
+              snippet: 'タップでヒント',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Image.asset('#', width: 100, height: 100),
+                      content: Text(
+                        '#',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
           Marker(
@@ -363,7 +485,24 @@ void showThirdDialog(BuildContext context) {
             position: const LatLng(33.89094986326708, 130.8392869599504),
             infoWindow: InfoWindow(
               title: 'GYMLABO',
-              onTap: () {},
+              snippet: 'タップでヒント',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Image.asset('#', width: 100, height: 100),
+                      content: Text(
+                        '#',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
           Marker(
@@ -371,7 +510,24 @@ void showThirdDialog(BuildContext context) {
             position: const LatLng(33.89082184819561, 130.8411399411388),
             infoWindow: InfoWindow(
               title: 'ものづくり工房',
-              onTap: () {},
+              snippet: 'タップでヒント',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Image.asset('#', width: 100, height: 100),
+                      content: Text(
+                        '#',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
         },
