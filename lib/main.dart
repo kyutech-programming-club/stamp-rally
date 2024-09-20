@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:proken_stamp_rally/sheet.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:async';
 import 'dart:math';
@@ -86,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isSignedIn = false; // サインイン状態の管理
   String? uid;
   Position? currentPosition;
+
   double? myx;
   double? myy;
   bool? acheck;
@@ -100,10 +100,22 @@ class _MyHomePageState extends State<MyHomePage> {
   List<String>? contextList;
 
 
-  static const stamp_position = [[33.895035283572184, 130.83913257377353],[33.895372549525625, 130.84023604777587],[33.89500932367183, 130.84079013291944],[33.894275995781406, 130.8386275132089],[33.894183902536696, 130.8400911980695],[33.893457834998614, 130.83918482825203],[33.8904262359517, 130.83873983917533],[33.89094986326708, 130.8392869599504],[33.89082184819561, 130.8411399411388]];
+    static const stamp_position = [
+    [33.895035283572184, 130.83913257377353],
+    [33.895372549525625, 130.84023604777587],
+    [33.89500932367183, 130.84079013291944],
+    [33.894275995781406, 130.8386275132089],
+    [33.894183902536696, 130.8400911980695],
+    [33.893457834998614, 130.83918482825203],
+    [33.8904262359517, 130.83873983917533],
+    [33.89094986326708, 130.8392869599504],
+    [33.89082184819561, 130.8411399411388]
+  ];
   void initState() {
     super.initState();
     signInAnonymously();
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) => _showStartDialog(),
   }
 
   Future<void> signInAnonymously() async {
@@ -117,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
     } catch (e) {
       print("サインインエラー: $e");
     }
+
   }
   void Sign()
   {
@@ -129,6 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
       for (var doc in querySnapshot.docs) {
         final data = doc.data() as Map<String, dynamic>;
         String contextdate = data['content'] as String;
+
 
         // contextdateをリストに追加
         List<String> contextList = [];
@@ -207,6 +221,89 @@ class _MyHomePageState extends State<MyHomePage> {
       await signInAnonymously(); // 再度サインインを試みる
     }
   }
+
+  void _showStartDialog() {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Image.asset('images/startDialog_pin.png', width: 55, height: 55),
+        content: Text(
+          "マップにある\nピンの近くに行ったら\n右下のボタンを押して\nスタンプをゲット!",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Color(0xFFD9D9D9)),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+              showSecondDialog(context);
+            },
+            child: Text('次へ'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void showSecondDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Image.asset('images/startDialog_checkCircle.png', width: 55, height: 55),
+        content: Text(
+          "たまったスタンプは\n右上のボタンを押して\n確認できるよ",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Color(0xFFD9D9D9)),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+              showThirdDialog(context); 
+            },
+            child: Text('次へ'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void showThirdDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Image.asset('images/startDialog_error.png', width: 55, height: 55),
+        content: Text(
+          '位置情報の取得を\n許可してね',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
+        ),
+        actions: [
+          TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Color(0xFFD9D9D9)),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('スタート'),
+          ),
+        ],
+      );
+    },
+  );
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
