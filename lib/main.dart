@@ -9,12 +9,15 @@ import 'firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(
+      const MyApp()
+     );
 }
 
 double distanceBetween(
@@ -22,7 +25,8 @@ double distanceBetween(
     double longitude1,
     double latitude2,
     double longitude2,
-    ) {
+    )
+{
   final toRadians = (double degree) => degree * pi / 180;
   final double r = 6378137.0; // 地球の半径
   final double f1 = toRadians(latitude1);
@@ -36,7 +40,6 @@ double distanceBetween(
 }
 void Stamp(context,document)
 {
-
   FirebaseFirestore.instance
       .collection('dream')
       .doc()
@@ -65,7 +68,6 @@ void Stamp(context,document)
     },
   );
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
@@ -86,6 +88,18 @@ class _MyHomePageState extends State<MyHomePage> {
   Position? currentPosition;
   double? myx;
   double? myy;
+  bool? acheck;
+  bool? bcheck;
+  bool? ccheck;
+  bool? dcheck;
+  bool? echeck;
+  bool? fcheck;
+  bool? gcheck;
+  bool? hcheck;
+  bool? icheck;
+  List<String>? contextList;
+
+
   static const stamp_position = [[33.895035283572184, 130.83913257377353],[33.895372549525625, 130.84023604777587],[33.89500932367183, 130.84079013291944],[33.894275995781406, 130.8386275132089],[33.894183902536696, 130.8400911980695],[33.893457834998614, 130.83918482825203],[33.8904262359517, 130.83873983917533],[33.89094986326708, 130.8392869599504],[33.89082184819561, 130.8411399411388]];
   void initState() {
     super.initState();
@@ -104,6 +118,76 @@ class _MyHomePageState extends State<MyHomePage> {
       print("サインインエラー: $e");
     }
   }
+  void Sign()
+  {
+    // ここでFirestoreからデータを取得し、各ドキュメントに対して処理を行います
+    FirebaseFirestore.instance
+        .collection('dream')
+        .where('uid', isEqualTo: uid) // `uid` を使ってフィルタリング
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        final data = doc.data() as Map<String, dynamic>;
+        String contextdate = data['content'] as String;
+
+        // contextdateをリストに追加
+        List<String> contextList = [];
+        contextList.add(contextdate);
+
+        // Finddate関数を呼び出す
+        Finddate(contextList);
+      }
+    });
+  }
+
+
+  void Finddate(contextdate)
+  {
+    if(contextdate != null)
+    {
+      for(String d in contextdate ??[])
+      {
+        if(d == "a")
+          {
+            acheck =true;
+            print("asdfvgk,h");
+          }
+        if(d == "b")
+          {
+            bcheck =true;
+          }
+        if(d == "c")
+        {
+          ccheck =true;
+        }
+        if(d == "d")
+        {
+          dcheck =true;
+        }
+        if(d == "e")
+        {
+          echeck =true;
+        }
+        if(d == "f")
+        {
+          fcheck =true;
+        }
+        if(d == "g")
+        {
+          gcheck =true;
+        }
+        if(d == "h")
+        {
+          hcheck =true;
+        }
+        if(d == "i")
+        {
+          icheck =true;
+        }
+      }
+    }
+  }
+
 
   Future<void> saveUserData(String content) async {
     User? currentUser = FirebaseAuth.instance.currentUser;
@@ -127,70 +211,162 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('プロ研スタンプラリー'),
+        title: const Text(
+          'プログラミング研究会 スタンプラリー',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Color(0xFF5592B4),
         actions: <Widget>[
-          TextButton(
+          ElevatedButton(
             onPressed: () => showDialog(
               context: context,
               builder: (BuildContext context) => AlertDialog(
-                title: const Text("Notifications"),
-                content: const Text("Do you allow notifications?"),
+                content: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            if(acheck == true)
+                            Image.asset('assets/images/stamp_gymlabo.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                        const SizedBox(width: 5),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            if(bcheck == true)
+                            Image.asset('assets/images/stamp_cafeteria.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                        const SizedBox(width: 5),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            if(ccheck == true)
+                            Image.asset('assets/images/stamp_factory.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+
+                            Image.asset('assets/images/stamp_back.png', width: 100, height: 100),
+                            if(dcheck == true)
+                            Image.asset('assets/images/stamp_library.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                        const SizedBox(width: 5),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            if(echeck == true)
+                            Image.asset('assets/images/stamp_proken.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                        const SizedBox(width: 5),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            if(fcheck == true)
+                            Image.asset('assets/images/stamp_interactive.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            if(gcheck == true)
+                            Image.asset('assets/images/stamp_gym.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                        const SizedBox(width: 5),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            if(hcheck == true)
+                            Image.asset('assets/images/stamp_healthCenter.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                        const SizedBox(width: 5),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/images/stamp_back.png',
+                                width: 100, height: 100),
+                            if(icheck == true)
+                            Image.asset('assets/images/stamp_auditorium.png',
+                                width: 100, height: 100),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'ビンゴできたら景品ゲット！！\nビンゴすればするほど景品が豪華になるかも！？',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () => Navigator.pop(context, 'Cancel'),
-                    child: const Text('Cancel'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context, 'Approve');
-                      // Add any action you want to take on approval here
-                    },
-                    child: const Text('Approve'),
+                    child: const Text(
+                      '戻る',
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ],
               ),
             ),
-            child: const Text('Show Dialog'),
+            child: const Text(
+              'スタンプラリー\nシートはこちら',
+              style: TextStyle(color: Color(0xFF5592B4)),
+            ),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
           ),
         ],
       ),
-      body: Column(
+        body: Column(
         children: [
-          Expanded(
-            child: isSignedIn && uid != null
-                ? StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('dream')
-                  .where('uid', isEqualTo: uid) // 取得したUIDでフィルタリング
-                  .snapshots(),
-              builder: (context, snapshots) {
-                if (snapshots.hasError) {
-                  return const Center(child: Text("エラーが発生しました"));
-                }
-                if (snapshots.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator()); // ローディング中
-                }
-
-                if (!snapshots.hasData || snapshots.data!.docs.isEmpty) {
-                  return const Center(child: Text("データがありません"));
-                }
-
-                final queryDocSnapshot = snapshots.data!.docs; // 取得したデータリスト
-                return ListView.builder(
-                  itemCount: queryDocSnapshot.length,
-                  itemBuilder: (context, index) {
-                    final data = queryDocSnapshot[index].data() as Map<String, dynamic>;
-                    return ListTile(
-                      title: Text(data['content'] ?? '内容がありません'),
-                    );
-                  },
-                );
-              },
-            )
-                : const Center(child: CircularProgressIndicator()), // ローディング表示
-          ),
-
-
           Expanded(
             flex: 2, // GoogleMapのスペースを調整
             child: GoogleMap(
@@ -295,16 +471,6 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           FloatingActionButton(
             onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SheetPage()),
-                  );
-            },
-            child: Image.asset('../assets/images/floating_image.png'),
-            backgroundColor: Color(0xFF5592B4),
-          ),
-          FloatingActionButton(
-            onPressed: () {
               Future(() async {
                 LocationPermission permission = await Geolocator.checkPermission();
                 if(permission == LocationPermission.denied){
@@ -328,53 +494,86 @@ class _MyHomePageState extends State<MyHomePage> {
                         stamp[0],
                         stamp[1]
                     );
-                    if(distncce >= 5)
+                    if(distncce <= 5)
                       {
-                        if(i == 8)
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: Color(0xFF5592B4),
+                              title: Image.asset('images/dialog_check.png',
+                                  width: 100, height: 100),
+                              content: Text(
+                                'スタンプ\nGET',
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                        if(i == 1)
                           {
                             await saveUserData("a");
                           }
-                        else if(i == 1)
+                        else if(i == 2)
                           {
                             await saveUserData("b");
                           }
-                        else if(i == 2)
+                        else if(i == 3)
                         {
                           await saveUserData("c");
                         }
-                        else if(i == 3)
+                        else if(i == 4)
                         {
                           await saveUserData("d");
                         }
-                        else if(i == 4)
+                        else if(i == 5)
                         {
                           await saveUserData("e");
                         }
-                        else if(i == 5)
+                        else if(i == 6)
                         {
                           await saveUserData("f");
                         }
-                        else if(i == 6)
+                        else if(i == 7)
                         {
                           await saveUserData("g");
                         }
-                        else if(i == 7)
+                        else if(i == 8)
                         {
                           await saveUserData("h");
                         }
-                          final document = <String, dynamic>{
-                          'context' : "a",
-                          'createdAt': Timestamp.fromDate(DateTime.now()),
-                        };
-                        Stamp(context,document);
+                        else if(i == 9)
+                        {
+                          await saveUserData("i");
+                        }
                       }
                     else
-                      {
-                        print("距離が遠いです");
-                      }
+                    {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                              backgroundColor: Color(0xFF5592B4),
+                              title: Image.asset('images/dialog_error.png',
+                                  width: 100, height: 100),
+                              content: Text(
+                                '目的地から離れています\nもう少し近づいてください',
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              ));
+                        },
+                      );
+                    }
 
                   }
-
+                Sign();
               });
             },
             child: Text('位置☑'),
