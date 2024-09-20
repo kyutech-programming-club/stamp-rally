@@ -116,6 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
     signInAnonymously();
     WidgetsBinding.instance!.addPostFrameCallback(
       (_) => _showStartDialog(),
+      );
   }
 
   Future<void> signInAnonymously() async {
