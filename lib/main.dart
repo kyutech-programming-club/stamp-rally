@@ -305,6 +305,7 @@ void showThirdDialog(BuildContext context) {
     },
   );
 }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -486,6 +487,7 @@ void showThirdDialog(BuildContext context) {
                   position: const LatLng(33.895372549525625, 130.84023604777587),
                   infoWindow: InfoWindow(
                     title: '九州工業大学 戸畑キャンパス記念講堂',
+                    snippet: 'セイユウガアツマルバショニコウドウハタツ。\nコンサートホールノヨウナイリグチ二ピンアリ',
                     onTap: () {},
                   ),
                 ),
@@ -495,6 +497,7 @@ void showThirdDialog(BuildContext context) {
                   position: const LatLng(33.89500932367183, 130.84079013291944),
                   infoWindow: InfoWindow(
                     title: '未来型インタラクティブ教育棟',
+                    snippet: 'ナカニカラフルナイスアリ。\nタテモノノチュウオウフキンニピンアリ',
                     onTap: () {},
                   ),
                 ),
@@ -504,6 +507,7 @@ void showThirdDialog(BuildContext context) {
                   position: const LatLng(33.894275995781406, 130.8386275132089),
                   infoWindow: InfoWindow(
                     title: '九工大保健センター',
+                    snippet: 'セツメイナクテモワカルデショ',
                     onTap: () {},
                   ),
                 ),
@@ -513,6 +517,7 @@ void showThirdDialog(BuildContext context) {
                   position: const LatLng(33.894183902536696, 130.8400911980695),
                   infoWindow: InfoWindow(
                     title: '九州工業大学 附属図書館',
+                    snippet: 'テマエニカガミノヨウナタテモノアリ。\nイリグチヲミツケルノハタヤスイ。ソコニピンアリ',
                     onTap: () {},
                   ),
                 ),
@@ -521,6 +526,7 @@ void showThirdDialog(BuildContext context) {
                   position: const LatLng(33.893457834998614, 130.83918482825203),
                   infoWindow: InfoWindow(
                     title: '九州工業大学生活協同組合 戸畑食堂',
+                    snippet: 'ガクショクメチャオイシイ。\nピンノテマエニヒロバアリ',
                     onTap: () {},
                   ),
                 ),
@@ -530,6 +536,7 @@ void showThirdDialog(BuildContext context) {
                   position: const LatLng(33.8904262359517, 130.83873983917533),
                   infoWindow: InfoWindow(
                     title: '檣山館',
+                    snippet: 'タイイクカンノヨウナモノ。\nグラウンドガワ二メンシタイリグチ二ピンアリ',
                     onTap: () {},
                   ),
                 ),
@@ -539,6 +546,8 @@ void showThirdDialog(BuildContext context) {
                   position: const LatLng(33.89094986326708, 130.8392869599504),
                   infoWindow: InfoWindow(
                     title: 'GYMLABO',
+                    snippet: 'ピンのチカク二レンタサイクルアリ。\nタテモノノカタチハカマボコ',
+                    
                     onTap: () {},
                   ),
                 ),
@@ -548,6 +557,7 @@ void showThirdDialog(BuildContext context) {
                   position: const LatLng(33.89082184819561, 130.8411399411388),
                   infoWindow: InfoWindow(
                     title: 'ものづくり工房',
+                    snippet: 'ガクセイガカツドウスルモノツクリノバ。\nピンガアルチカク二リョウアリ',
                     onTap: () {},
                   ),
                 ),
