@@ -580,6 +580,7 @@ class _MyHomePageState extends State<MyHomePage> {
             print(myy);
 
             int i = 0;
+            int k = 0;
             for (final stamp in stamp_position) {
               i = i + 1;
               double distncce = distanceBetween(
@@ -623,7 +624,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   await saveUserData("i");
                 }
               } else {
-                showDialog(
+                k += 1;
+                if(k == 9)
+                {
+                  showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
@@ -640,6 +644,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         ));
                   },
                 );
+                }
+              
               }
             }
             Sign();
