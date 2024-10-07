@@ -223,6 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _showStartDialog() {
     showDialog(
       context: context,
+      barrierColor: Colors.black.withOpacity(0.8),
       builder: (BuildContext context) {
         return AlertDialog(
           title:
@@ -253,6 +254,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void showSecondDialog(BuildContext context) {
     showDialog(
       context: context,
+      barrierColor: Colors.black.withOpacity(0.8),
       builder: (BuildContext context) {
         return AlertDialog(
           title: Image.asset('images/startDialog_checkCircle.png',
@@ -283,6 +285,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void showThirdDialog(BuildContext context) {
     showDialog(
       context: context,
+      barrierColor: Colors.black.withOpacity(0.8),
       builder: (BuildContext context) {
         return AlertDialog(
           title: Image.asset('images/startDialog_error.png',
