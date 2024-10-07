@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:async';
@@ -106,12 +107,28 @@ class _MyHomePageState extends State<MyHomePage> {
     [33.89094986326708, 130.8392869599504],
     [33.89082184819561, 130.8411399411388]
   ];
+
+  String? _mapStyle;
+  GoogleMapController? _mapController;
+
   void initState() {
     super.initState();
     signInAnonymously();
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => _showStartDialog(),
     );
+    rootBundle.loadString('assets/map_style.txt').then((string) {
+      _mapStyle = string;
+    });
+  }
+
+  _onMapCreated(GoogleMapController controller) {
+    if (mounted) {
+      setState(() {
+        _mapController = controller;
+        controller.setMapStyle(_mapStyle);
+      });
+    }
   }
 
   Future<void> signInAnonymously() async {
@@ -455,114 +472,110 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 2, // GoogleMapのスペースを調整
-            child: GoogleMap(
-              initialCameraPosition: const CameraPosition(
-                target: LatLng(33.8924, 130.8403),
-                zoom: 15,
-              ),
-              markers: {
-                Marker(
-                  markerId: const MarkerId('marker_id_1'),
-                  position: LatLng(stamp_position[0][0], stamp_position[0][1]),
-                  infoWindow: InfoWindow(
-                    title: 'C-2C プロ研展示',
-                    onTap: () {},
-                  ),
-                ),
-                Marker(
-                  markerId: const MarkerId('marker_id_2'),
-                  position:
-                      const LatLng(33.895372549525625, 130.84023604777587),
-                  infoWindow: InfoWindow(
-                    title: '九州工業大学 戸畑キャンパス記念講堂',
-                    onTap: () {},
-                  ),
-                ),
-                Marker(
-                  markerId: const MarkerId('marker_id_3'),
-                  position: const LatLng(33.89500932367183, 130.84079013291944),
-                  infoWindow: InfoWindow(
-                    title: '正門',
-                    onTap: () {},
-                  ),
-                ),
-                Marker(
-                  markerId: const MarkerId('marker_id_4'),
-                  position: const LatLng(33.894275995781406, 130.8386275132089),
-                  infoWindow: InfoWindow(
-                    title: '九工大保健センター',
-                    onTap: () {},
-                  ),
-                ),
-                Marker(
-                  markerId: const MarkerId('marker_id_5'),
-                  position: const LatLng(33.894183902536696, 130.8400911980695),
-                  infoWindow: InfoWindow(
-                    title: '九州工業大学 附属図書館',
-                    onTap: () {},
-                  ),
-                ),
-                Marker(
-                  markerId: const MarkerId('marker_id_6'),
-                  position:
-                      const LatLng(33.893457834998614, 130.83918482825203),
-                  infoWindow: InfoWindow(
-                    title: '九州工業大学生活協同組合 戸畑食堂',
-                    onTap: () {},
-                  ),
-                ),
-                Marker(
-                  markerId: const MarkerId('marker_id_7'),
-                  position: const LatLng(33.8904262359517, 130.83873983917533),
-                  infoWindow: InfoWindow(
-                    title: '正門付近 銅像',
-                    onTap: () {},
-                  ),
-                ),
-                Marker(
-                  markerId: const MarkerId('marker_id_8'),
-                  position: const LatLng(33.89094986326708, 130.8392869599504),
-                  infoWindow: InfoWindow(
-                    title: 'GYMLABO',
-                    onTap: () {},
-                  ),
-                ),
-                Marker(
-                  markerId: const MarkerId('marker_id_9'),
-                  position: const LatLng(33.89082184819561, 130.8411399411388),
-                  infoWindow: InfoWindow(
-                    title: '百周年中村記念館',
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('自分'),
-                              content: Image.asset(
-                                  'assets/images/stamp_healthCenter.png',
-                                  width: 100,
-                                  height: 100),
-                            );
-                          });
-                    },
-                  ),
-                ),
-                Marker(
-                  markerId: const MarkerId('marker_id_10'),
-                  position: LatLng(myx ?? 0, myy ?? 0),
-                  infoWindow: InfoWindow(
-                    title: '自分',
-                    onTap: () {},
-                  ),
-                ),
-              },
-            ),
+      body: Expanded(
+        flex: 2, // GoogleMapのスペースを調整
+        child: GoogleMap(
+          initialCameraPosition: const CameraPosition(
+            target: LatLng(33.8924, 130.8403),
+            zoom: 16,
           ),
-        ],
+          onMapCreated: _onMapCreated,
+          mapType: MapType.normal,
+          markers: {
+            Marker(
+              markerId: const MarkerId('marker_id_1'),
+              position: LatLng(stamp_position[0][0], stamp_position[0][1]),
+              infoWindow: InfoWindow(
+                title: 'C-2C プロ研展示',
+                onTap: () {},
+              ),
+            ),
+            Marker(
+              markerId: const MarkerId('marker_id_2'),
+              position: const LatLng(33.895372549525625, 130.84023604777587),
+              infoWindow: InfoWindow(
+                title: '九州工業大学 戸畑キャンパス記念講堂',
+                onTap: () {},
+              ),
+            ),
+            Marker(
+              markerId: const MarkerId('marker_id_3'),
+              position: const LatLng(33.89500932367183, 130.84079013291944),
+              infoWindow: InfoWindow(
+                title: '正門',
+                onTap: () {},
+              ),
+            ),
+            Marker(
+              markerId: const MarkerId('marker_id_4'),
+              position: const LatLng(33.894275995781406, 130.8386275132089),
+              infoWindow: InfoWindow(
+                title: '九工大保健センター',
+                onTap: () {},
+              ),
+            ),
+            Marker(
+              markerId: const MarkerId('marker_id_5'),
+              position: const LatLng(33.894183902536696, 130.8400911980695),
+              infoWindow: InfoWindow(
+                title: '九州工業大学 附属図書館',
+                onTap: () {},
+              ),
+            ),
+            Marker(
+              markerId: const MarkerId('marker_id_6'),
+              position: const LatLng(33.893457834998614, 130.83918482825203),
+              infoWindow: InfoWindow(
+                title: '九州工業大学生活協同組合 戸畑食堂',
+                onTap: () {},
+              ),
+            ),
+            Marker(
+              markerId: const MarkerId('marker_id_7'),
+              position: const LatLng(33.8904262359517, 130.83873983917533),
+              infoWindow: InfoWindow(
+                title: '正門付近 銅像',
+                onTap: () {},
+              ),
+            ),
+            Marker(
+              markerId: const MarkerId('marker_id_8'),
+              position: const LatLng(33.89094986326708, 130.8392869599504),
+              infoWindow: InfoWindow(
+                title: 'GYMLABO',
+                onTap: () {},
+              ),
+            ),
+            Marker(
+              markerId: const MarkerId('marker_id_9'),
+              position: const LatLng(33.89082184819561, 130.8411399411388),
+              infoWindow: InfoWindow(
+                title: '百周年中村記念館',
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('自分'),
+                          content: Image.asset(
+                              'assets/images/stamp_healthCenter.png',
+                              width: 100,
+                              height: 100),
+                        );
+                      });
+                },
+              ),
+            ),
+            Marker(
+              markerId: const MarkerId('marker_id_10'),
+              position: LatLng(myx ?? 0, myy ?? 0),
+              infoWindow: InfoWindow(
+                title: '自分',
+                onTap: () {},
+              ),
+            ),
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -625,33 +638,32 @@ class _MyHomePageState extends State<MyHomePage> {
                 }
               } else {
                 k += 1;
-                if(k == 9)
-                {
+                if (k == 9) {
                   showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                        backgroundColor: const Color(0xFF5592B4),
-                        title: Image.asset('images/dialog_error.png',
-                            width: 100, height: 100),
-                        content: const Text(
-                          '目的地から離れています\nもう少し近づいてください',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ));
-                  },
-                );
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                          backgroundColor: const Color(0xFF5592B4),
+                          title: Image.asset('images/dialog_error.png',
+                              width: 100, height: 100),
+                          content: const Text(
+                            '目的地から離れています\nもう少し近づいてください',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ));
+                    },
+                  );
                 }
-              
               }
             }
             Sign();
           });
         },
-        child: const Text('位置☑'),
+        backgroundColor: const Color(0xFF5592B4),
+        child: const Image(image: AssetImage('images/floating_image.png')),
       ),
     );
   }
