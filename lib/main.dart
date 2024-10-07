@@ -121,8 +121,8 @@ class _MyHomePageState extends State<MyHomePage> {
     rootBundle.loadString('assets/map_style.txt').then((string) {
       _mapStyle = string;
     });
-    BitmapDescriptor.asset(
-            const ImageConfiguration(size: Size(30, 30)), 'assets/images/jack.png')
+    BitmapDescriptor.asset(const ImageConfiguration(size: Size(30, 30)),
+            'assets/images/jack.png')
         .then((onValue) {
       myIcon = onValue;
     });
@@ -342,10 +342,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (acheck == true)
                               Image.asset('assets/images/stamp_gymlabo.png',
-                                  width: 100, height: 100),
+                                  width: 80, height: 80),
                           ],
                         ),
                         const SizedBox(width: 5),
@@ -353,10 +353,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (bcheck == true)
                               Image.asset('assets/images/stamp_cafeteria.png',
-                                  width: 100, height: 100),
+                                  width: 80, height: 80),
                           ],
                         ),
                         const SizedBox(width: 5),
@@ -364,10 +364,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (ccheck == true)
-                              Image.asset('assets/images/stamp_main_gage.png',
-                                  width: 100, height: 100),
+                              Image.asset('assets/images/stamp_main_gate.png',
+                                  width: 80, height: 80),
                           ],
                         ),
                       ],
@@ -380,10 +380,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (dcheck == true)
                               Image.asset('assets/images/stamp_library.png',
-                                  width: 100, height: 100),
+                                  width: 80, height: 80),
                           ],
                         ),
                         const SizedBox(width: 5),
@@ -391,10 +391,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (echeck == true)
                               Image.asset('assets/images/stamp_proken.png',
-                                  width: 100, height: 100),
+                                  width: 80, height: 80),
                           ],
                         ),
                         const SizedBox(width: 5),
@@ -402,12 +402,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (fcheck == true)
                               Image.asset(
                                   'assets/images/stamp_bronze_statue.png',
-                                  width: 100,
-                                  height: 100),
+                                  width: 80,
+                                  height: 0),
                           ],
                         ),
                       ],
@@ -420,12 +420,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (gcheck == true)
                               Image.asset(
                                   'assets/images/stamp_memorial_museum.png',
-                                  width: 100,
-                                  height: 100),
+                                  width: 80,
+                                  height: 0),
                           ],
                         ),
                         const SizedBox(width: 5),
@@ -433,12 +433,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (hcheck == true)
                               Image.asset(
                                   'assets/images/stamp_healthCenter.png',
-                                  width: 100,
-                                  height: 100),
+                                  width: 80,
+                                  height: 0),
                           ],
                         ),
                         const SizedBox(width: 5),
@@ -446,10 +446,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (icheck == true)
                               Image.asset('assets/images/stamp_auditorium.png',
-                                  width: 100, height: 100),
+                                  width: 80, height: 80),
                           ],
                         ),
                       ],
@@ -497,19 +497,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[5][0], stamp_position[5][1]),
               infoWindow: InfoWindow(
                 title: 'C-2C プロ研展示',
-                snippet: 'ここをタップ！',
+                snippet: 'タップでヒント!',
                 onTap: () {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('C-2C プロ研展示'),
-                        content: Column(
-                          children: [
-                            const Text("最後はここに来てね！"),
-                            Image.asset('images/proken.png'),
-                          ],
-                        ),
+                      return SimpleDialog(
+                        title: const Text('C-2C プロ研展示',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
+                        children: <Widget>[
+                          const Text("最後はここに来てね！",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 18)),
+                          Image.asset('images/proken.jpg'),
+                        ],
                       );
                     },
                   );
@@ -521,19 +525,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[2][0], stamp_position[2][1]),
               infoWindow: InfoWindow(
                 title: '九州工業大学 戸畑キャンパス記念講堂',
-                snippet: 'ここをタップ！',
+                snippet: 'タップでヒント!',
                 onTap: () {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('九州工業大学 戸畑キャンパス記念講堂'),
-                        content: Column(
-                          children: [
-                            const Text("土曜日には声優トークショーが開催！"),
-                            Image.asset('images/auditorium.jpg'),
-                          ],
-                        ),
+                      return SimpleDialog(
+                        title: const Text('九州工業大学 戸畑キャンパス記念講堂',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
+                        children: <Widget>[
+                          const Text("土曜日には声優トークショーが開催！",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 18)),
+                          Image.asset('images/auditorium.jpg'),
+                        ],
                       );
                     },
                   );
@@ -545,19 +553,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[0][0], stamp_position[0][1]),
               infoWindow: InfoWindow(
                 title: '正門',
-                snippet: 'ここをタップ！',
+                snippet: 'タップでヒント!',
                 onTap: () {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('正門'),
-                        content: Column(
-                          children: [
-                            const Text("九工大生の多くが登校してくる場所。入学当初はみんなここで写真撮るよ!"),
-                            Image.asset('images/main_gate.jpg'),
-                          ],
-                        ),
+                      return SimpleDialog(
+                        title: const Text('正門',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
+                        children: <Widget>[
+                          const Text("九工大生の多くが登校してくる場所。\n入学当初はみんなここで写真撮るよ!",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 18)),
+                          Image.asset('images/main_gate.jpg'),
+                        ],
                       );
                     },
                   );
@@ -569,19 +581,24 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[8][0], stamp_position[8][1]),
               infoWindow: InfoWindow(
                 title: '九工大保健センター',
-                snippet: 'ここをタップ！',
+                snippet: 'タップでヒント!',
                 onTap: () {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('九工大保健センター'),
-                        content: Column(
-                          children: [
-                            const Text("九工大の保健室"),
-                            Image.asset('images/helethCenter.jpg'),
-                          ],
-                        ),
+                      return SimpleDialog(
+                        title: const Text('九工大保健センター',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
+                        children: <Widget>[
+                          const Text(
+                              "九工大の保健室。工大祭中に怪我をしたり\n体調が悪くなったりしたら\nここに行こう。",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 18)),
+                          Image.asset('images/healthCenter.jpg'),
+                        ],
                       );
                     },
                   );
@@ -593,19 +610,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[4][0], stamp_position[4][1]),
               infoWindow: InfoWindow(
                 title: '九州工業大学 附属図書館',
-                snippet: 'ここをタップ！',
+                snippet: 'タップでヒント!',
                 onTap: () {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('九州工業大学 附属図書館'),
-                        content: Column(
-                          children: [
-                            const Text("勉強場所の定番"),
-                            Image.asset('images/library.jpg'),
-                          ],
-                        ),
+                      return SimpleDialog(
+                        title: const Text('九州工業大学 附属図書館',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
+                        children: <Widget>[
+                          const Text("勉強場所の定番。\n専門書など、普通の図書館にはない本がいっぱい!",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 18)),
+                          Image.asset('images/library.jpg'),
+                        ],
                       );
                     },
                   );
@@ -617,19 +638,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[6][0], stamp_position[6][1]),
               infoWindow: InfoWindow(
                 title: '九州工業大学生活協同組合 戸畑食堂',
-                snippet: 'ここをタップ！',
+                snippet: 'タップでヒント!',
                 onTap: () {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('九州工業大学生活協同組合 戸畑食堂'),
-                        content: Column(
-                          children: [
-                            const Text("九工大生の昼食スポット"),
-                            Image.asset('images/cafeteria.jpg'),
-                          ],
-                        ),
+                      return SimpleDialog(
+                        title: const Text('九州工業大学生活協同組合 戸畑食堂',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
+                        children: <Widget>[
+                          const Text("九工大生の昼食スポット。\n週ごとにメニューが変わるよ。",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 18)),
+                          Image.asset('images/cafeteria.jpg'),
+                        ],
                       );
                     },
                   );
@@ -641,19 +666,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[1][0], stamp_position[1][1]),
               infoWindow: InfoWindow(
                 title: '正門付近 銅像',
-                snippet: 'ここをタップ！',
+                snippet: 'タップでヒント!',
                 onTap: () {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('正門付近 銅像'),
-                        content: Column(
-                          children: [
-                            const Text("モチーフは九工大に超ゆかりがある人！？君は誰だかわかるかな？"),
-                            Image.asset('images/bronze_statue.jpg'),
-                          ],
-                        ),
+                      return SimpleDialog(
+                        title: const Text('正門付近 銅像',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
+                        children: <Widget>[
+                          const Text("モチーフは九工大に超ゆかりがある人！？\n君は誰だかわかるかな？",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 18)),
+                          Image.asset('images/bronze_statue.jpg'),
+                        ],
                       );
                     },
                   );
@@ -665,19 +694,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[7][0], stamp_position[7][1]),
               infoWindow: InfoWindow(
                 title: 'GYMLABO',
-                snippet: 'ここをタップ！',
+                snippet: 'タップでヒント!',
                 onTap: () {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('GYMLABO'),
-                        content: Column(
-                          children: [
-                            const Text("復刻ノオトや文教祭が開催中"),
-                            Image.asset('images/gymlabo.jpg'),
-                          ],
-                        ),
+                      return SimpleDialog(
+                        title: const Text('GYMLABO',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
+                        children: <Widget>[
+                          const Text("復刻ノオトや文教祭が開催中！\nピアノ関連のイベントも開催中！\nぜひ参加してね",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 18)),
+                          Image.asset('images/gymlabo.jpg'),
+                        ],
                       );
                     },
                   );
@@ -689,19 +722,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[3][0], stamp_position[3][1]),
               infoWindow: InfoWindow(
                 title: '百周年中村記念館',
-                snippet: 'ここをタップ！',
+                snippet: 'タップでヒント!',
                 onTap: () {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('百周年中村記念館'),
-                        content: Column(
-                          children: [
-                            const Text("大学の歴史の資料が展示されています。"),
-                            Image.asset('images/memorial_museum.jpg'),
-                          ],
-                        ),
+                      return SimpleDialog(
+                        title: const Text('百周年中村記念館',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
+                        children: <Widget>[
+                          const Text("大学の歴史の資料が展示されています。",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 18)),
+                          Image.asset('images/memorial_museum.jpg'),
+                        ],
                       );
                     },
                   );
@@ -711,7 +748,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Marker(
               markerId: const MarkerId('marker_id_10'),
               position: LatLng(myx ?? 0, myy ?? 0),
-              icon: myIcon,
+              // icon: myIcon,
               infoWindow: const InfoWindow(title: '現在地'),
             ),
           },
@@ -738,7 +775,7 @@ class _MyHomePageState extends State<MyHomePage> {
               i = i + 1;
               double distncce = distanceBetween(
                   position.latitude, position.longitude, stamp[0], stamp[1]);
-              if (distncce <= 5) {
+              if (distncce <= 100) {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
