@@ -484,6 +484,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           onMapCreated: _onMapCreated,
           mapType: MapType.normal,
+          zoomControlsEnabled: false,
           markers: {
             Marker(
               markerId: const MarkerId('marker_id_1'),
