@@ -110,6 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   String? _mapStyle;
   GoogleMapController? _mapController;
+  late BitmapDescriptor myIcon;
 
   void initState() {
     super.initState();
@@ -119,6 +120,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     rootBundle.loadString('assets/map_style.txt').then((string) {
       _mapStyle = string;
+    });
+    BitmapDescriptor.asset(
+            const ImageConfiguration(size: Size(30, 30)), 'assets/images/jack.png')
+        .then((onValue) {
+      myIcon = onValue;
     });
   }
 
@@ -573,10 +579,8 @@ class _MyHomePageState extends State<MyHomePage> {
             Marker(
               markerId: const MarkerId('marker_id_10'),
               position: LatLng(myx ?? 0, myy ?? 0),
-              infoWindow: InfoWindow(
-                title: '自分',
-                onTap: () {},
-              ),
+              icon: myIcon,
+              infoWindow: const InfoWindow(title: '現在地'),
             ),
           },
         ),
