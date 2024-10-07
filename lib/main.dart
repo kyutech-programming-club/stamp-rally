@@ -97,15 +97,15 @@ class _MyHomePageState extends State<MyHomePage> {
   List<String>? contextList;
 
   static const stamp_position = [
-    [33.895035283572184, 130.83913257377353],
-    [33.895372549525625, 130.84023604777587],
-    [33.89500932367183, 130.84079013291944],
-    [33.894275995781406, 130.8386275132089],
-    [33.894183902536696, 130.8400911980695],
-    [33.893457834998614, 130.83918482825203],
-    [33.8904262359517, 130.83873983917533],
-    [33.89094986326708, 130.8392869599504],
-    [33.89082184819561, 130.8411399411388]
+    [33.89622708644376, 130.83947266423812], //正門
+    [33.89562274517045, 130.8397637738136], //銅像
+    [33.89530804544407, 130.84005321430428], //記念講堂
+    [33.89474550776414, 130.84002775948636], //中村記念館
+    [33.89428200032459, 130.8401130290263], //図書館
+    [33.89424092156493, 130.8391409544224], //c-2c
+    [33.89361218258276, 130.8391702393], //食堂
+    [33.890949698331966, 130.8392117562366], //GYMLABO
+    [33.89425708935455, 130.83870339261978] //保健センター
   ];
 
   String? _mapStyle;
@@ -488,7 +488,7 @@ class _MyHomePageState extends State<MyHomePage> {
           markers: {
             Marker(
               markerId: const MarkerId('marker_id_1'),
-              position: LatLng(stamp_position[0][0], stamp_position[0][1]),
+              position: LatLng(stamp_position[5][0], stamp_position[5][1]),
               infoWindow: InfoWindow(
                 title: 'C-2C プロ研展示',
                 onTap: () {},
@@ -496,7 +496,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Marker(
               markerId: const MarkerId('marker_id_2'),
-              position: const LatLng(33.895372549525625, 130.84023604777587),
+              position: LatLng(stamp_position[2][0], stamp_position[2][1]),
               infoWindow: InfoWindow(
                 title: '九州工業大学 戸畑キャンパス記念講堂',
                 onTap: () {},
@@ -504,7 +504,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Marker(
               markerId: const MarkerId('marker_id_3'),
-              position: const LatLng(33.89500932367183, 130.84079013291944),
+              position: LatLng(stamp_position[0][0], stamp_position[0][1]),
               infoWindow: InfoWindow(
                 title: '正門',
                 onTap: () {},
@@ -512,7 +512,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Marker(
               markerId: const MarkerId('marker_id_4'),
-              position: const LatLng(33.894275995781406, 130.8386275132089),
+              position: LatLng(stamp_position[8][0], stamp_position[8][1]),
               infoWindow: InfoWindow(
                 title: '九工大保健センター',
                 onTap: () {},
@@ -520,7 +520,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Marker(
               markerId: const MarkerId('marker_id_5'),
-              position: const LatLng(33.894183902536696, 130.8400911980695),
+              position: LatLng(stamp_position[4][0], stamp_position[4][1]),
               infoWindow: InfoWindow(
                 title: '九州工業大学 附属図書館',
                 onTap: () {},
@@ -528,7 +528,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Marker(
               markerId: const MarkerId('marker_id_6'),
-              position: const LatLng(33.893457834998614, 130.83918482825203),
+              position: LatLng(stamp_position[6][0], stamp_position[6][1]),
               infoWindow: InfoWindow(
                 title: '九州工業大学生活協同組合 戸畑食堂',
                 onTap: () {},
@@ -536,7 +536,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Marker(
               markerId: const MarkerId('marker_id_7'),
-              position: const LatLng(33.8904262359517, 130.83873983917533),
+              position: LatLng(stamp_position[1][0], stamp_position[1][1]),
               infoWindow: InfoWindow(
                 title: '正門付近 銅像',
                 onTap: () {},
@@ -544,7 +544,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Marker(
               markerId: const MarkerId('marker_id_8'),
-              position: const LatLng(33.89094986326708, 130.8392869599504),
+              position: LatLng(stamp_position[7][0], stamp_position[7][1]),
               infoWindow: InfoWindow(
                 title: 'GYMLABO',
                 onTap: () {},
@@ -552,7 +552,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Marker(
               markerId: const MarkerId('marker_id_9'),
-              position: const LatLng(33.89082184819561, 130.8411399411388),
+              position: LatLng(stamp_position[3][0], stamp_position[3][1]),
               infoWindow: InfoWindow(
                 title: '百周年中村記念館',
                 onTap: () {
