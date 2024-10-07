@@ -497,7 +497,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[5][0], stamp_position[5][1]),
               infoWindow: InfoWindow(
                 title: 'C-2C プロ研展示',
-                onTap: () {},
+                snippet: 'ここをタップ！',
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('C-2C プロ研展示'),
+                        content: Column(
+                          children: [
+                            const Text("最後はここに来てね！"),
+                            Image.asset('images/proken.png'),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
             Marker(
@@ -505,7 +521,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[2][0], stamp_position[2][1]),
               infoWindow: InfoWindow(
                 title: '九州工業大学 戸畑キャンパス記念講堂',
-                onTap: () {},
+                snippet: 'ここをタップ！',
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('九州工業大学 戸畑キャンパス記念講堂'),
+                        content: Column(
+                          children: [
+                            const Text("土曜日には声優トークショーが開催！"),
+                            Image.asset('images/auditorium.jpg'),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
             Marker(
@@ -513,7 +545,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[0][0], stamp_position[0][1]),
               infoWindow: InfoWindow(
                 title: '正門',
-                onTap: () {},
+                snippet: 'ここをタップ！',
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('正門'),
+                        content: Column(
+                          children: [
+                            const Text("九工大生の多くが登校してくる場所。入学当初はみんなここで写真撮るよ!"),
+                            Image.asset('images/main_gate.jpg'),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
             Marker(
@@ -521,7 +569,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[8][0], stamp_position[8][1]),
               infoWindow: InfoWindow(
                 title: '九工大保健センター',
-                onTap: () {},
+                snippet: 'ここをタップ！',
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('九工大保健センター'),
+                        content: Column(
+                          children: [
+                            const Text("九工大の保健室"),
+                            Image.asset('images/helethCenter.jpg'),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
             Marker(
@@ -529,7 +593,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[4][0], stamp_position[4][1]),
               infoWindow: InfoWindow(
                 title: '九州工業大学 附属図書館',
-                onTap: () {},
+                snippet: 'ここをタップ！',
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('九州工業大学 附属図書館'),
+                        content: Column(
+                          children: [
+                            const Text("勉強場所の定番"),
+                            Image.asset('images/library.jpg'),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
             Marker(
@@ -537,7 +617,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[6][0], stamp_position[6][1]),
               infoWindow: InfoWindow(
                 title: '九州工業大学生活協同組合 戸畑食堂',
-                onTap: () {},
+                snippet: 'ここをタップ！',
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('九州工業大学生活協同組合 戸畑食堂'),
+                        content: Column(
+                          children: [
+                            const Text("九工大生の昼食スポット"),
+                            Image.asset('images/cafeteria.jpg'),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
             Marker(
@@ -545,7 +641,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[1][0], stamp_position[1][1]),
               infoWindow: InfoWindow(
                 title: '正門付近 銅像',
-                onTap: () {},
+                snippet: 'ここをタップ！',
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('正門付近 銅像'),
+                        content: Column(
+                          children: [
+                            const Text("モチーフは九工大に超ゆかりがある人！？君は誰だかわかるかな？"),
+                            Image.asset('images/bronze_statue.jpg'),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
             Marker(
@@ -553,7 +665,23 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[7][0], stamp_position[7][1]),
               infoWindow: InfoWindow(
                 title: 'GYMLABO',
-                onTap: () {},
+                snippet: 'ここをタップ！',
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('GYMLABO'),
+                        content: Column(
+                          children: [
+                            const Text("復刻ノオトや文教祭が開催中"),
+                            Image.asset('images/gymlabo.jpg'),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
             Marker(
@@ -561,18 +689,22 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[3][0], stamp_position[3][1]),
               infoWindow: InfoWindow(
                 title: '百周年中村記念館',
+                snippet: 'ここをタップ！',
                 onTap: () {
                   showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text('自分'),
-                          content: Image.asset(
-                              'assets/images/stamp_healthCenter.png',
-                              width: 100,
-                              height: 100),
-                        );
-                      });
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('百周年中村記念館'),
+                        content: Column(
+                          children: [
+                            const Text("大学の歴史の資料が展示されています。"),
+                            Image.asset('images/memorial_museum.jpg'),
+                          ],
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
             ),
