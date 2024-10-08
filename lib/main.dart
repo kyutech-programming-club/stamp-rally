@@ -407,7 +407,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Image.asset(
                                   'assets/images/stamp_bronze_statue.png',
                                   width: 80,
-                                  height: 0),
+                                  height: 80),
                           ],
                         ),
                       ],
@@ -485,8 +485,8 @@ class _MyHomePageState extends State<MyHomePage> {
         flex: 2, // GoogleMapのスペースを調整
         child: GoogleMap(
           initialCameraPosition: const CameraPosition(
-            target: LatLng(33.8924, 130.8403),
-            zoom: 16,
+            target: LatLng(33.893778307446745, 130.84012198995114),
+            zoom: 16.82,
           ),
           onMapCreated: _onMapCreated,
           mapType: MapType.normal,
@@ -497,7 +497,7 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[5][0], stamp_position[5][1]),
               infoWindow: InfoWindow(
                 title: 'C-2C プロ研展示',
-                snippet: 'タップでヒント!',
+                snippet: 'ここをタップ!',
                 onTap: () {
                   showDialog(
                     context: context,
@@ -525,7 +525,7 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[2][0], stamp_position[2][1]),
               infoWindow: InfoWindow(
                 title: '九州工業大学 戸畑キャンパス記念講堂',
-                snippet: 'タップでヒント!',
+                snippet: 'ここをタップ!',
                 onTap: () {
                   showDialog(
                     context: context,
@@ -553,7 +553,7 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[0][0], stamp_position[0][1]),
               infoWindow: InfoWindow(
                 title: '正門',
-                snippet: 'タップでヒント!',
+                snippet: 'ここをタップ!',
                 onTap: () {
                   showDialog(
                     context: context,
@@ -581,7 +581,7 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[8][0], stamp_position[8][1]),
               infoWindow: InfoWindow(
                 title: '九工大保健センター',
-                snippet: 'タップでヒント!',
+                snippet: 'ここをタップ!',
                 onTap: () {
                   showDialog(
                     context: context,
@@ -610,7 +610,7 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[4][0], stamp_position[4][1]),
               infoWindow: InfoWindow(
                 title: '九州工業大学 附属図書館',
-                snippet: 'タップでヒント!',
+                snippet: 'ここをタップ!',
                 onTap: () {
                   showDialog(
                     context: context,
@@ -638,7 +638,7 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[6][0], stamp_position[6][1]),
               infoWindow: InfoWindow(
                 title: '九州工業大学生活協同組合 戸畑食堂',
-                snippet: 'タップでヒント!',
+                snippet: 'ここをタップ!',
                 onTap: () {
                   showDialog(
                     context: context,
@@ -666,7 +666,7 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[1][0], stamp_position[1][1]),
               infoWindow: InfoWindow(
                 title: '正門付近 銅像',
-                snippet: 'タップでヒント!',
+                snippet: 'ここをタップ!',
                 onTap: () {
                   showDialog(
                     context: context,
@@ -678,7 +678,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               fontWeight: FontWeight.bold,
                             )),
                         children: <Widget>[
-                          const Text("モチーフは九工大に超ゆかりがある人！？\n君は誰だかわかるかな？",
+                          const Text("モチーフは九工大に超ゆかりがある人！？\n詳細は銅像の前の説明文をチェック！",
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 18)),
                           Image.asset('images/bronze_statue.jpg'),
@@ -694,7 +694,7 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[7][0], stamp_position[7][1]),
               infoWindow: InfoWindow(
                 title: 'GYMLABO',
-                snippet: 'タップでヒント!',
+                snippet: 'ここをタップ!',
                 onTap: () {
                   showDialog(
                     context: context,
@@ -722,7 +722,7 @@ class _MyHomePageState extends State<MyHomePage> {
               position: LatLng(stamp_position[3][0], stamp_position[3][1]),
               infoWindow: InfoWindow(
                 title: '百周年中村記念館',
-                snippet: 'タップでヒント!',
+                snippet: 'ここをタップ!',
                 onTap: () {
                   showDialog(
                     context: context,
@@ -748,7 +748,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Marker(
               markerId: const MarkerId('marker_id_10'),
               position: LatLng(myx ?? 0, myy ?? 0),
-              // icon: myIcon,
+              icon: myIcon,
               infoWindow: const InfoWindow(title: '現在地'),
             ),
           },
@@ -775,7 +775,7 @@ class _MyHomePageState extends State<MyHomePage> {
               i = i + 1;
               double distncce = distanceBetween(
                   position.latitude, position.longitude, stamp[0], stamp[1]);
-              if (distncce <= 100) {
+              if (distncce <= 5) {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
