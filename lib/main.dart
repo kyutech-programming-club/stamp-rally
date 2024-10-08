@@ -83,8 +83,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String? uid;
   Position? currentPosition;
 
-  double? myx;
-  double? myy;
   bool? acheck;
   bool? bcheck;
   bool? ccheck;
@@ -110,7 +108,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   String? _mapStyle;
   GoogleMapController? _mapController;
-  late BitmapDescriptor myIcon;
+  BitmapDescriptor? myIcon;
+  Position? position;
 
   void initState() {
     super.initState();
@@ -121,8 +120,19 @@ class _MyHomePageState extends State<MyHomePage> {
     rootBundle.loadString('assets/map_style.txt').then((string) {
       _mapStyle = string;
     });
-    BitmapDescriptor.asset(const ImageConfiguration(size: Size(30, 30)),
-            'assets/images/jack.png')
+
+    const LocationSettings locationSettings = LocationSettings(
+      accuracy: LocationAccuracy.best,
+      distanceFilter: 0,
+    );
+    Geolocator.getPositionStream(locationSettings: locationSettings)
+        .listen((Position? newPosition) {
+          position = newPosition;
+          setState(() {});
+      // do what you want to do with the position here
+    });
+    BitmapDescriptor.asset(
+            const ImageConfiguration(size: Size(30, 30)), 'assets/images/jack.png')
         .then((onValue) {
       myIcon = onValue;
     });
@@ -481,278 +491,238 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Expanded(
-        flex: 2, // GoogleMapのスペースを調整
-        child: GoogleMap(
-          initialCameraPosition: const CameraPosition(
-            target: LatLng(33.893778307446745, 130.84012198995114),
-            zoom: 16.82,
-          ),
-          onMapCreated: _onMapCreated,
-          mapType: MapType.normal,
-          zoomControlsEnabled: false,
-          markers: {
-            Marker(
-              markerId: const MarkerId('marker_id_1'),
-              position: LatLng(stamp_position[5][0], stamp_position[5][1]),
-              infoWindow: InfoWindow(
-                title: 'C-2C プロ研展示',
-                snippet: 'ここをタップ!',
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SimpleDialog(
-                        title: const Text('C-2C プロ研展示',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            )),
-                        children: <Widget>[
-                          const Text("最後はここに来てね！",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 18)),
-                          Image.asset('images/proken.jpg'),
+      body: GoogleMap(
+        initialCameraPosition: const CameraPosition(
+          target: LatLng(33.8924, 130.8403),
+          zoom: 16,
+        ),
+        onMapCreated: _onMapCreated,
+        mapType: MapType.normal,
+        zoomControlsEnabled: false,
+        markers: {
+          Marker(
+            markerId: const MarkerId('marker_id_1'),
+            position: LatLng(stamp_position[5][0], stamp_position[5][1]),
+            infoWindow: InfoWindow(
+              title: 'C-2C プロ研展示',
+              snippet: 'ここをタップ！',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('C-2C プロ研展示'),
+                      content: Column(
+                        children: [
+                          const Text("最後はここに来てね！"),
+                          Image.asset('images/proken.png'),
                         ],
-                      );
-                    },
-                  );
-                },
-              ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
-            Marker(
-              markerId: const MarkerId('marker_id_2'),
-              position: LatLng(stamp_position[2][0], stamp_position[2][1]),
-              infoWindow: InfoWindow(
-                title: '九州工業大学 戸畑キャンパス記念講堂',
-                snippet: 'ここをタップ!',
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SimpleDialog(
-                        title: const Text('九州工業大学 戸畑キャンパス記念講堂',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            )),
-                        children: <Widget>[
-                          const Text("土曜日には声優トークショーが開催！",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 18)),
+          ),
+          Marker(
+            markerId: const MarkerId('marker_id_2'),
+            position: LatLng(stamp_position[2][0], stamp_position[2][1]),
+            infoWindow: InfoWindow(
+              title: '九州工業大学 戸畑キャンパス記念講堂',
+              snippet: 'ここをタップ！',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('九州工業大学 戸畑キャンパス記念講堂'),
+                      content: Column(
+                        children: [
+                          const Text("土曜日には声優トークショーが開催！"),
                           Image.asset('images/auditorium.jpg'),
                         ],
-                      );
-                    },
-                  );
-                },
-              ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
-            Marker(
-              markerId: const MarkerId('marker_id_3'),
-              position: LatLng(stamp_position[0][0], stamp_position[0][1]),
-              infoWindow: InfoWindow(
-                title: '正門',
-                snippet: 'ここをタップ!',
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SimpleDialog(
-                        title: const Text('正門',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            )),
-                        children: <Widget>[
-                          const Text("九工大生の多くが登校してくる場所。\n入学当初はみんなここで写真撮るよ!",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 18)),
+          ),
+          Marker(
+            markerId: const MarkerId('marker_id_3'),
+            position: LatLng(stamp_position[0][0], stamp_position[0][1]),
+            infoWindow: InfoWindow(
+              title: '正門',
+              snippet: 'ここをタップ！',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('正門'),
+                      content: Column(
+                        children: [
+                          const Text("九工大生の多くが登校してくる場所。入学当初はみんなここで写真撮るよ!"),
                           Image.asset('images/main_gate.jpg'),
                         ],
-                      );
-                    },
-                  );
-                },
-              ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
-            Marker(
-              markerId: const MarkerId('marker_id_4'),
-              position: LatLng(stamp_position[8][0], stamp_position[8][1]),
-              infoWindow: InfoWindow(
-                title: '九工大保健センター',
-                snippet: 'ここをタップ!',
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SimpleDialog(
-                        title: const Text('九工大保健センター',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            )),
-                        children: <Widget>[
-                          const Text(
-                              "九工大の保健室。工大祭中に怪我をしたり\n体調が悪くなったりしたら\nここに行こう。",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 18)),
-                          Image.asset('images/healthCenter.jpg'),
+          ),
+          Marker(
+            markerId: const MarkerId('marker_id_4'),
+            position: LatLng(stamp_position[8][0], stamp_position[8][1]),
+            infoWindow: InfoWindow(
+              title: '九工大保健センター',
+              snippet: 'ここをタップ！',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('九工大保健センター'),
+                      content: Column(
+                        children: [
+                          const Text("九工大の保健室"),
+                          Image.asset('images/helethCenter.jpg'),
                         ],
-                      );
-                    },
-                  );
-                },
-              ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
-            Marker(
-              markerId: const MarkerId('marker_id_5'),
-              position: LatLng(stamp_position[4][0], stamp_position[4][1]),
-              infoWindow: InfoWindow(
-                title: '九州工業大学 附属図書館',
-                snippet: 'ここをタップ!',
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SimpleDialog(
-                        title: const Text('九州工業大学 附属図書館',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            )),
-                        children: <Widget>[
-                          const Text("勉強場所の定番。\n専門書など、普通の図書館にはない本がいっぱい!",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 18)),
+          ),
+          Marker(
+            markerId: const MarkerId('marker_id_5'),
+            position: LatLng(stamp_position[4][0], stamp_position[4][1]),
+            infoWindow: InfoWindow(
+              title: '九州工業大学 附属図書館',
+              snippet: 'ここをタップ！',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('九州工業大学 附属図書館'),
+                      content: Column(
+                        children: [
+                          const Text("勉強場所の定番"),
                           Image.asset('images/library.jpg'),
                         ],
-                      );
-                    },
-                  );
-                },
-              ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
-            Marker(
-              markerId: const MarkerId('marker_id_6'),
-              position: LatLng(stamp_position[6][0], stamp_position[6][1]),
-              infoWindow: InfoWindow(
-                title: '九州工業大学生活協同組合 戸畑食堂',
-                snippet: 'ここをタップ!',
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SimpleDialog(
-                        title: const Text('九州工業大学生活協同組合 戸畑食堂',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            )),
-                        children: <Widget>[
-                          const Text("九工大生の昼食スポット。\n週ごとにメニューが変わるよ。",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 18)),
+          ),
+          Marker(
+            markerId: const MarkerId('marker_id_6'),
+            position: LatLng(stamp_position[6][0], stamp_position[6][1]),
+            infoWindow: InfoWindow(
+              title: '九州工業大学生活協同組合 戸畑食堂',
+              snippet: 'ここをタップ！',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('九州工業大学生活協同組合 戸畑食堂'),
+                      content: Column(
+                        children: [
+                          const Text("九工大生の昼食スポット"),
                           Image.asset('images/cafeteria.jpg'),
                         ],
-                      );
-                    },
-                  );
-                },
-              ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
-            Marker(
-              markerId: const MarkerId('marker_id_7'),
-              position: LatLng(stamp_position[1][0], stamp_position[1][1]),
-              infoWindow: InfoWindow(
-                title: '正門付近 銅像',
-                snippet: 'ここをタップ!',
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SimpleDialog(
-                        title: const Text('正門付近 銅像',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            )),
-                        children: <Widget>[
-                          const Text("モチーフは九工大に超ゆかりがある人！？\n詳細は銅像の前の説明文をチェック！",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 18)),
+          ),
+          Marker(
+            markerId: const MarkerId('marker_id_7'),
+            position: LatLng(stamp_position[1][0], stamp_position[1][1]),
+            infoWindow: InfoWindow(
+              title: '正門付近 銅像',
+              snippet: 'ここをタップ！',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('正門付近 銅像'),
+                      content: Column(
+                        children: [
+                          const Text("モチーフは九工大に超ゆかりがある人！？君は誰だかわかるかな？"),
                           Image.asset('images/bronze_statue.jpg'),
                         ],
-                      );
-                    },
-                  );
-                },
-              ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
-            Marker(
-              markerId: const MarkerId('marker_id_8'),
-              position: LatLng(stamp_position[7][0], stamp_position[7][1]),
-              infoWindow: InfoWindow(
-                title: 'GYMLABO',
-                snippet: 'ここをタップ!',
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SimpleDialog(
-                        title: const Text('GYMLABO',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            )),
-                        children: <Widget>[
-                          const Text("復刻ノオトや文教祭が開催中！\nピアノ関連のイベントも開催中！\nぜひ参加してね",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 18)),
+          ),
+          Marker(
+            markerId: const MarkerId('marker_id_8'),
+            position: LatLng(stamp_position[7][0], stamp_position[7][1]),
+            infoWindow: InfoWindow(
+              title: 'GYMLABO',
+              snippet: 'ここをタップ！',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('GYMLABO'),
+                      content: Column(
+                        children: [
+                          const Text("復刻ノオトや文教祭が開催中"),
                           Image.asset('images/gymlabo.jpg'),
                         ],
-                      );
-                    },
-                  );
-                },
-              ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
-            Marker(
-              markerId: const MarkerId('marker_id_9'),
-              position: LatLng(stamp_position[3][0], stamp_position[3][1]),
-              infoWindow: InfoWindow(
-                title: '百周年中村記念館',
-                snippet: 'ここをタップ!',
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SimpleDialog(
-                        title: const Text('百周年中村記念館',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            )),
-                        children: <Widget>[
-                          const Text("大学の歴史の資料が展示されています。",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 18)),
+          ),
+          Marker(
+            markerId: const MarkerId('marker_id_9'),
+            position: LatLng(stamp_position[3][0], stamp_position[3][1]),
+            infoWindow: InfoWindow(
+              title: '百周年中村記念館',
+              snippet: 'ここをタップ！',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('百周年中村記念館'),
+                      content: Column(
+                        children: [
+                          const Text("大学の歴史の資料が展示されています。"),
                           Image.asset('images/memorial_museum.jpg'),
                         ],
-                      );
-                    },
-                  );
-                },
-              ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
-            Marker(
-              markerId: const MarkerId('marker_id_10'),
-              position: LatLng(myx ?? 0, myy ?? 0),
-              icon: myIcon,
-              infoWindow: const InfoWindow(title: '現在地'),
-            ),
-          },
-        ),
+          ),
+          Marker(
+            markerId: const MarkerId('marker_id_10'),
+            position: LatLng(position?.latitude ?? 0, position?.longitude ?? 0),
+            icon: myIcon ?? BitmapDescriptor.defaultMarker,
+            infoWindow: const InfoWindow(title: '現在地'),
+          ),
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -762,12 +732,6 @@ class _MyHomePageState extends State<MyHomePage> {
               await Geolocator.requestPermission();
             }
             Position position = await Geolocator.getCurrentPosition();
-            setState(() {
-              myx = position.latitude;
-              myy = position.longitude;
-            });
-            print(myx);
-            print(myy);
 
             int i = 0;
             int k = 0;
