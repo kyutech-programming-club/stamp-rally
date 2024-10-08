@@ -107,7 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   String? _mapStyle;
-  GoogleMapController? _mapController;
   BitmapDescriptor? myIcon;
   Position? position;
 
@@ -131,8 +130,8 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {});
       // do what you want to do with the position here
     });
-    BitmapDescriptor.asset(const ImageConfiguration(size: Size(30, 30)),
-            'assets/images/jack.png')
+    BitmapDescriptor.asset(
+            const ImageConfiguration(size: Size(30, 30)), 'assets/jack.png')
         .then((onValue) {
       myIcon = onValue;
     });
@@ -141,7 +140,6 @@ class _MyHomePageState extends State<MyHomePage> {
   _onMapCreated(GoogleMapController controller) {
     if (mounted) {
       setState(() {
-        _mapController = controller;
         controller.setMapStyle(_mapStyle);
       });
     }
@@ -243,7 +241,7 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title:
-              Image.asset('images/startDialog_pin.png', width: 55, height: 55),
+              Image.asset('assets/startDialog_pin.png', width: 55, height: 55),
           content: const Text(
             "マップにある\nピンの近くに行ったら\n右下のボタンを押して\nスタンプをゲット!",
             textAlign: TextAlign.center,
@@ -273,7 +271,7 @@ class _MyHomePageState extends State<MyHomePage> {
       barrierColor: Colors.black.withOpacity(0.8),
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Image.asset('images/startDialog_checkCircle.png',
+          title: Image.asset('assets/startDialog_checkCircle.png',
               width: 55, height: 55),
           content: const Text(
             "たまったスタンプは\n右上のボタンを押して\n確認できるよ",
@@ -304,7 +302,7 @@ class _MyHomePageState extends State<MyHomePage> {
       barrierColor: Colors.black.withOpacity(0.8),
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Image.asset('images/startDialog_error.png',
+          title: Image.asset('assets/startDialog_error.png',
               width: 55, height: 55),
           content: const Text(
             '位置情報の取得を\n許可してね',
@@ -351,33 +349,51 @@ class _MyHomePageState extends State<MyHomePage> {
                         Stack(
                           alignment: Alignment.center,
                           children: [
-                            Image.asset('assets/images/stamp_back.png',
-                                width: 80, height: 80),
+                            Image.asset(
+                              'assets/stamp_back.png',
+                              width: 100,
+                              height: 100,
+                            ),
                             if (acheck == true)
-                              Image.asset('assets/images/stamp_gymlabo.png',
-                                  width: 80, height: 80),
+                              Image.asset(
+                                'assets/stamp_gymlabo.png',
+                                width: 100,
+                                height: 100,
+                              ),
                           ],
                         ),
                         const SizedBox(width: 5),
                         Stack(
                           alignment: Alignment.center,
                           children: [
-                            Image.asset('assets/images/stamp_back.png',
-                                width: 80, height: 80),
+                            Image.asset(
+                              'assets/stamp_back.png',
+                              width: 100,
+                              height: 100,
+                            ),
                             if (bcheck == true)
-                              Image.asset('assets/images/stamp_cafeteria.png',
-                                  width: 80, height: 80),
+                              Image.asset(
+                                'assets/stamp_cafeteria.png',
+                                width: 100,
+                                height: 100,
+                              ),
                           ],
                         ),
                         const SizedBox(width: 5),
                         Stack(
                           alignment: Alignment.center,
                           children: [
-                            Image.asset('assets/images/stamp_back.png',
-                                width: 80, height: 80),
+                            Image.asset(
+                              'assets/stamp_back.png',
+                              width: 100,
+                              height: 100,
+                            ),
                             if (ccheck == true)
-                              Image.asset('assets/images/stamp_main_gate.png',
-                                  width: 80, height: 80),
+                              Image.asset(
+                                'assets/stamp_main_gage.png',
+                                width: 100,
+                                height: 100,
+                              ),
                           ],
                         ),
                       ],
@@ -389,35 +405,51 @@ class _MyHomePageState extends State<MyHomePage> {
                         Stack(
                           alignment: Alignment.center,
                           children: [
-                            Image.asset('assets/images/stamp_back.png',
-                                width: 80, height: 80),
+                            Image.asset(
+                              'assets/stamp_back.png',
+                              width: 100,
+                              height: 100,
+                            ),
                             if (dcheck == true)
-                              Image.asset('assets/images/stamp_library.png',
-                                  width: 80, height: 80),
+                              Image.asset(
+                                'assets/stamp_library.png',
+                                width: 100,
+                                height: 100,
+                              ),
                           ],
                         ),
                         const SizedBox(width: 5),
                         Stack(
                           alignment: Alignment.center,
                           children: [
-                            Image.asset('assets/images/stamp_back.png',
-                                width: 80, height: 80),
+                            Image.asset(
+                              'assets/stamp_back.png',
+                              width: 100,
+                              height: 100,
+                            ),
                             if (echeck == true)
-                              Image.asset('assets/images/stamp_proken.png',
-                                  width: 80, height: 80),
+                              Image.asset(
+                                'assets/stamp_proken.png',
+                                width: 100,
+                                height: 100,
+                              ),
                           ],
                         ),
                         const SizedBox(width: 5),
                         Stack(
                           alignment: Alignment.center,
                           children: [
-                            Image.asset('assets/images/stamp_back.png',
-                                width: 80, height: 80),
+                            Image.asset(
+                              'assets/stamp_back.png',
+                              width: 100,
+                              height: 100,
+                            ),
                             if (fcheck == true)
                               Image.asset(
-                                  'assets/images/stamp_bronze_statue.png',
-                                  width: 80,
-                                  height: 80),
+                                'assets/stamp_bronze_statue.png',
+                                width: 100,
+                                height: 100,
+                              ),
                           ],
                         ),
                       ],
@@ -429,44 +461,58 @@ class _MyHomePageState extends State<MyHomePage> {
                         Stack(
                           alignment: Alignment.center,
                           children: [
-                            Image.asset('assets/images/stamp_back.png',
-                                width: 80, height: 80),
+                            Image.asset(
+                              'assets/stamp_back.png',
+                              width: 100,
+                              height: 100,
+                            ),
                             if (gcheck == true)
                               Image.asset(
-                                  'assets/images/stamp_memorial_museum.png',
-                                  width: 80,
-                                  height: 80),
+                                'assets/stamp_memorial_museum.png',
+                                width: 100,
+                                height: 100,
+                              ),
                           ],
                         ),
                         const SizedBox(width: 5),
                         Stack(
                           alignment: Alignment.center,
                           children: [
-                            Image.asset('assets/images/stamp_back.png',
-                                width: 80, height: 80),
+                            Image.asset(
+                              'assets/stamp_back.png',
+                              width: 100,
+                              height: 100,
+                            ),
                             if (hcheck == true)
                               Image.asset(
-                                  'assets/images/stamp_healthCenter.png',
-                                  width: 80,
-                                  height: 80),
+                                'assets/stamp_healthCenter.png',
+                                width: 100,
+                                height: 100,
+                              ),
                           ],
                         ),
                         const SizedBox(width: 5),
                         Stack(
                           alignment: Alignment.center,
                           children: [
-                            Image.asset('assets/images/stamp_back.png',
-                                width: 80, height: 80),
+                            Image.asset(
+                              'assets/stamp_back.png',
+                              width: 100,
+                              height: 100,
+                            ),
                             if (icheck == true)
-                              Image.asset('assets/images/stamp_auditorium.png',
-                                  width: 80, height: 80),
+                              Image.asset(
+                                'assets/stamp_auditorium.png',
+                                width: 100,
+                                height: 100,
+                              ),
                           ],
                         ),
                       ],
                     ),
                     const SizedBox(height: 20),
                     const Text(
-                      'ビンゴできたら景品ゲット！！\nビンゴすればするほど景品が豪華になるかも！？',
+                      'ビンゴできたら景品ゲット！！\nビンゴすればするほど景品が豪華になるかも!？',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16),
                     ),
@@ -518,7 +564,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("最後はここに来てね！",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                        Image.asset('images/proken.jpg'),
+                        Image.asset('assets/proken.png'),
                       ],
                     );
                   },
@@ -570,7 +616,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("九工大生の多くが登校してくる場所。\n入学当初はみんなここで写真撮るよ!",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                        Image.asset('images/main_gate.jpg'),
+                          Image.asset('assets/main_gate.jpg'),
                       ],
                     );
                   },
@@ -597,7 +643,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             "九工大の保健室。\n工大祭中に怪我をしたり\n体調が悪くなったりしたら\nここに行こう。",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                        Image.asset('images/healthCenter.jpg'),
+                          Image.asset('assets/helethCenter.jpg'),
                       ],
                     );
                   },
@@ -623,7 +669,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("勉強場所の定番。\n専門書など、普通の図書館にはない本がいっぱい!",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                        Image.asset('images/library.jpg'),
+                          Image.asset('assets/library.jpg'),
                       ],
                     );
                   },
@@ -649,7 +695,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("九工大生の昼食スポット。\n週ごとにメニューが変わるよ。",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                        Image.asset('images/cafeteria.jpg'),
+                         Image.asset('assets/cafeteria.jpg'),
                       ],
                     );
                   },
@@ -675,7 +721,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("モチーフは九工大に超ゆかりがある人!?\n詳細は銅像の前の説明文をチェック!",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                        Image.asset('images/bronze_statue.jpg'),
+                          Image.asset('assets/bronze_statue.jpg'),
                       ],
                     );
                   },
@@ -701,7 +747,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("復刻ノオトや文教祭が開催中!\nピアノ関連のイベントも開催中!\nぜひ参加してね",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                        Image.asset('images/gymlabo.jpg'),
+                          Image.asset('assets/gymlabo.jpg'),
                       ],
                     );
                   },
@@ -727,7 +773,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("大学の歴史の資料が展示されています。",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                        Image.asset('images/memorial_museum.jpg'),
+                          Image.asset('assets/memorial_museum.jpg'),
                       ],
                     );
                   },
@@ -764,8 +810,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       backgroundColor: const Color(0xFF5592B4),
-                      title: Image.asset('images/dialog_check.png',
-                          width: 100, height: 100),
+                      title: Image.asset(
+                        'assets/dialog_check.png',
+                        width: 100,
+                        height: 100,
+                      ),
                       content: const Text(
                         'スタンプ\nGET',
                         textAlign: TextAlign.center,
@@ -804,8 +853,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                           backgroundColor: const Color(0xFF5592B4),
-                          title: Image.asset('images/dialog_error.png',
-                              width: 100, height: 100),
+                          title: Image.asset(
+                            'assets/dialog_error.png',
+                            width: 100,
+                            height: 100,
+                          ),
                           content: const Text(
                             '目的地から離れています\nもう少し近づいてください',
                             textAlign: TextAlign.center,
@@ -823,7 +875,7 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
         backgroundColor: const Color(0xFF5592B4),
-        child: const Image(image: AssetImage('images/floating_image.png')),
+        child: const Image(image: AssetImage('assets/floating_image.png')),
       ),
     );
   }
