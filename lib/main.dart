@@ -127,12 +127,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     Geolocator.getPositionStream(locationSettings: locationSettings)
         .listen((Position? newPosition) {
-          position = newPosition;
-          setState(() {});
+      position = newPosition;
+      setState(() {});
       // do what you want to do with the position here
     });
-    BitmapDescriptor.asset(
-            const ImageConfiguration(size: Size(30, 30)), 'assets/images/jack.png')
+    BitmapDescriptor.asset(const ImageConfiguration(size: Size(30, 30)),
+            'assets/images/jack.png')
         .then((onValue) {
       myIcon = onValue;
     });
@@ -493,8 +493,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: GoogleMap(
         initialCameraPosition: const CameraPosition(
-          target: LatLng(33.8924, 130.8403),
-          zoom: 16,
+          target: LatLng(33.893778307446745, 130.84012198995114),
+          zoom: 16.82,
         ),
         onMapCreated: _onMapCreated,
         mapType: MapType.normal,
@@ -510,14 +510,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('C-2C プロ研展示'),
-                      content: Column(
-                        children: [
-                          const Text("最後はここに来てね！"),
-                          Image.asset('images/proken.png'),
-                        ],
-                      ),
+                    return SimpleDialog(
+                      title: const Text('C-2C プロ研展示',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      children: <Widget>[
+                        const Text("最後はここに来てね！",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18)),
+                        Image.asset('images/proken.jpg'),
+                      ],
                     );
                   },
                 );
@@ -534,14 +536,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('九州工業大学 戸畑キャンパス記念講堂'),
-                      content: Column(
-                        children: [
-                          const Text("土曜日には声優トークショーが開催！"),
-                          Image.asset('images/auditorium.jpg'),
-                        ],
-                      ),
+                    return SimpleDialog(
+                      title: const Text('九州工業大学\n戸畑キャンパス記念講堂',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      children: <Widget>[
+                        const Text("土曜日には声優トークショーが開催！",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18)),
+                        Image.asset('images/auditorium.jpg'),
+                      ],
                     );
                   },
                 );
@@ -558,14 +562,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('正門'),
-                      content: Column(
-                        children: [
-                          const Text("九工大生の多くが登校してくる場所。入学当初はみんなここで写真撮るよ!"),
-                          Image.asset('images/main_gate.jpg'),
-                        ],
-                      ),
+                    return SimpleDialog(
+                      title: const Text('正門',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      children: <Widget>[
+                        const Text("九工大生の多くが登校してくる場所。\n入学当初はみんなここで写真撮るよ!",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18)),
+                        Image.asset('images/main_gate.jpg'),
+                      ],
                     );
                   },
                 );
@@ -582,14 +588,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('九工大保健センター'),
-                      content: Column(
-                        children: [
-                          const Text("九工大の保健室"),
-                          Image.asset('images/helethCenter.jpg'),
-                        ],
-                      ),
+                    return SimpleDialog(
+                      title: const Text('九工大保健センター',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      children: <Widget>[
+                        const Text(
+                            "九工大の保健室。\n工大祭中に怪我をしたり\n体調が悪くなったりしたら\nここに行こう。",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18)),
+                        Image.asset('images/healthCenter.jpg'),
+                      ],
                     );
                   },
                 );
@@ -606,14 +615,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('九州工業大学 附属図書館'),
-                      content: Column(
-                        children: [
-                          const Text("勉強場所の定番"),
-                          Image.asset('images/library.jpg'),
-                        ],
-                      ),
+                    return SimpleDialog(
+                      title: const Text('九州工業大学 附属図書館',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      children: <Widget>[
+                        const Text("勉強場所の定番。\n専門書など、普通の図書館にはない本がいっぱい!",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18)),
+                        Image.asset('images/library.jpg'),
+                      ],
                     );
                   },
                 );
@@ -630,14 +641,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('九州工業大学生活協同組合 戸畑食堂'),
-                      content: Column(
-                        children: [
-                          const Text("九工大生の昼食スポット"),
-                          Image.asset('images/cafeteria.jpg'),
-                        ],
-                      ),
+                    return SimpleDialog(
+                      title: const Text('九州工業大学生活協同組合 戸畑食堂',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      children: <Widget>[
+                        const Text("九工大生の昼食スポット。\n週ごとにメニューが変わるよ。",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18)),
+                        Image.asset('images/cafeteria.jpg'),
+                      ],
                     );
                   },
                 );
@@ -654,14 +667,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('正門付近 銅像'),
-                      content: Column(
-                        children: [
-                          const Text("モチーフは九工大に超ゆかりがある人！？君は誰だかわかるかな？"),
-                          Image.asset('images/bronze_statue.jpg'),
-                        ],
-                      ),
+                    return SimpleDialog(
+                      title: const Text('正門付近 銅像',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      children: <Widget>[
+                        const Text("モチーフは九工大に超ゆかりがある人!?\n詳細は銅像の前の説明文をチェック!",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18)),
+                        Image.asset('images/bronze_statue.jpg'),
+                      ],
                     );
                   },
                 );
@@ -678,14 +693,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('GYMLABO'),
-                      content: Column(
-                        children: [
-                          const Text("復刻ノオトや文教祭が開催中"),
-                          Image.asset('images/gymlabo.jpg'),
-                        ],
-                      ),
+                    return SimpleDialog(
+                      title: const Text('GYMLABO',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      children: <Widget>[
+                        const Text("復刻ノオトや文教祭が開催中!\nピアノ関連のイベントも開催中!\nぜひ参加してね",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18)),
+                        Image.asset('images/gymlabo.jpg'),
+                      ],
                     );
                   },
                 );
@@ -702,14 +719,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('百周年中村記念館'),
-                      content: Column(
-                        children: [
-                          const Text("大学の歴史の資料が展示されています。"),
-                          Image.asset('images/memorial_museum.jpg'),
-                        ],
-                      ),
+                    return SimpleDialog(
+                      title: const Text('百周年中村記念館',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      children: <Widget>[
+                        const Text("大学の歴史の資料が展示されています。",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18)),
+                        Image.asset('images/memorial_museum.jpg'),
+                      ],
                     );
                   },
                 );
