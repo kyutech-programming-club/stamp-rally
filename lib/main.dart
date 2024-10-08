@@ -83,8 +83,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String? uid;
   Position? currentPosition;
 
-  double? myx;
-  double? myy;
   bool? acheck;
   bool? bcheck;
   bool? ccheck;
@@ -110,7 +108,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   String? _mapStyle;
   GoogleMapController? _mapController;
-  late BitmapDescriptor myIcon;
+  BitmapDescriptor? myIcon;
+  Position? position;
 
   void initState() {
     super.initState();
@@ -121,10 +120,16 @@ class _MyHomePageState extends State<MyHomePage> {
     rootBundle.loadString('assets/map_style.txt').then((string) {
       _mapStyle = string;
     });
-    BitmapDescriptor.asset(
-            const ImageConfiguration(size: Size(30, 30)), 'assets/images/jack.png')
-        .then((onValue) {
-      myIcon = onValue;
+    const LocationSettings locationSettings = LocationSettings(
+      accuracy: LocationAccuracy.best,
+      distanceFilter: 0,
+    );
+    StreamSubscription<Position> positionStream =
+    Geolocator.getPositionStream(locationSettings: locationSettings)
+        .listen((Position? newPosition) {
+          position = newPosition;
+          setState(() {});
+      // do what you want to do with the position here
     });
   }
 
