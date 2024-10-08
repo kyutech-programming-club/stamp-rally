@@ -124,7 +124,6 @@ class _MyHomePageState extends State<MyHomePage> {
       accuracy: LocationAccuracy.best,
       distanceFilter: 0,
     );
-    StreamSubscription<Position> positionStream =
     Geolocator.getPositionStream(locationSettings: locationSettings)
         .listen((Position? newPosition) {
           position = newPosition;
