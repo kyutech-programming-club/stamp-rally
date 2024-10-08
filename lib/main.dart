@@ -120,6 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
     rootBundle.loadString('assets/map_style.txt').then((string) {
       _mapStyle = string;
     });
+
     const LocationSettings locationSettings = LocationSettings(
       accuracy: LocationAccuracy.best,
       distanceFilter: 0,
@@ -351,10 +352,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (acheck == true)
                               Image.asset('assets/images/stamp_gymlabo.png',
-                                  width: 100, height: 100),
+                                  width: 80, height: 80),
                           ],
                         ),
                         const SizedBox(width: 5),
@@ -362,10 +363,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (bcheck == true)
                               Image.asset('assets/images/stamp_cafeteria.png',
-                                  width: 100, height: 100),
+                                  width: 80, height: 80),
                           ],
                         ),
                         const SizedBox(width: 5),
@@ -373,10 +374,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (ccheck == true)
-                              Image.asset('assets/images/stamp_main_gage.png',
-                                  width: 100, height: 100),
+                              Image.asset('assets/images/stamp_main_gate.png',
+                                  width: 80, height: 80),
                           ],
                         ),
                       ],
@@ -389,10 +390,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (dcheck == true)
                               Image.asset('assets/images/stamp_library.png',
-                                  width: 100, height: 100),
+                                  width: 80, height: 80),
                           ],
                         ),
                         const SizedBox(width: 5),
@@ -400,10 +401,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (echeck == true)
                               Image.asset('assets/images/stamp_proken.png',
-                                  width: 100, height: 100),
+                                  width: 80, height: 80),
                           ],
                         ),
                         const SizedBox(width: 5),
@@ -411,12 +412,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (fcheck == true)
                               Image.asset(
                                   'assets/images/stamp_bronze_statue.png',
-                                  width: 100,
-                                  height: 100),
+                                  width: 80,
+                                  height: 80),
                           ],
                         ),
                       ],
@@ -429,12 +430,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (gcheck == true)
                               Image.asset(
                                   'assets/images/stamp_memorial_museum.png',
-                                  width: 100,
-                                  height: 100),
+                                  width: 80,
+                                  height: 80),
                           ],
                         ),
                         const SizedBox(width: 5),
@@ -442,12 +443,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (hcheck == true)
                               Image.asset(
                                   'assets/images/stamp_healthCenter.png',
-                                  width: 100,
-                                  height: 100),
+                                  width: 80,
+                                  height: 80),
                           ],
                         ),
                         const SizedBox(width: 5),
@@ -455,10 +456,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           children: [
                             Image.asset('assets/images/stamp_back.png',
-                                width: 100, height: 100),
+                                width: 80, height: 80),
                             if (icheck == true)
                               Image.asset('assets/images/stamp_auditorium.png',
-                                  width: 100, height: 100),
+                                  width: 80, height: 80),
                           ],
                         ),
                       ],
