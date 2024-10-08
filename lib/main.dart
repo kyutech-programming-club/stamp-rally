@@ -435,7 +435,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Image.asset(
                                   'assets/images/stamp_memorial_museum.png',
                                   width: 80,
-                                  height: 0),
+                                  height: 80),
                           ],
                         ),
                         const SizedBox(width: 5),
@@ -448,7 +448,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Image.asset(
                                   'assets/images/stamp_healthCenter.png',
                                   width: 80,
-                                  height: 0),
+                                  height: 80),
                           ],
                         ),
                         const SizedBox(width: 5),
