@@ -244,20 +244,19 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       barrierColor: Colors.black.withOpacity(0.8),
       builder: (BuildContext context) {
-        return AlertDialog(
-          title:
-              Image.asset('assets/startDialog_pin.png', width: 55, height: 55),
-          content: const Text(
-            "マップにある\nピンの近くに行ったら\n右下のボタンを押して\nスタンプをゲット!",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
+        return SimpleDialog(
+          title: Image.asset(
+            'assets/startDialog_pin.png',
+            width: 55,
+            height: 55,
           ),
-          actions: <Widget>[
+          children: [
+            const Text(
+              'マップにある\nピンの近くに行ったら\n右下のボタンを押して\nスタンプをゲット!',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20),
+            ),
             TextButton(
-              style: ButtonStyle(
-                backgroundColor:
-                    WidgetStateProperty.all(const Color(0xFFD9D9D9)),
-              ),
               onPressed: () {
                 Navigator.of(context).pop();
                 showSecondDialog(context);
@@ -275,20 +274,19 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       barrierColor: Colors.black.withOpacity(0.8),
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Image.asset('assets/startDialog_checkCircle.png',
-              width: 55, height: 55),
-          content: const Text(
-            "たまったスタンプは\n右上のボタンを押して\n確認できるよ",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
+        return SimpleDialog(
+          title: Image.asset(
+            'assets/startDialog_checkCircle.png',
+            width: 55,
+            height: 55,
           ),
-          actions: <Widget>[
+          children: [
+            const Text(
+              'たまったスタンプは\n右上のボタンを押して\n確認できるよ',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20),
+            ),
             TextButton(
-              style: ButtonStyle(
-                backgroundColor:
-                    WidgetStateProperty.all(const Color(0xFFD9D9D9)),
-              ),
               onPressed: () {
                 Navigator.of(context).pop();
                 showThirdDialog(context);
@@ -306,20 +304,19 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       barrierColor: Colors.black.withOpacity(0.8),
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Image.asset('assets/startDialog_error.png',
-              width: 55, height: 55),
-          content: const Text(
-            '位置情報の取得を\n許可してね',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
+        return SimpleDialog(
+          title: Image.asset(
+            'assets/startDialog_error.png',
+            width: 55,
+            height: 55,
           ),
-          actions: [
+          children: [
+            const Text(
+              '位置情報の取得を\n許可してね',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20),
+            ),
             TextButton(
-              style: ButtonStyle(
-                backgroundColor:
-                    WidgetStateProperty.all(const Color(0xFFD9D9D9)),
-              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -344,9 +341,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ElevatedButton(
             onPressed: () => showDialog(
               context: context,
-              builder: (BuildContext context) => AlertDialog(
-                content: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              builder: (context) {
+                return SimpleDialog(
+                  title: const Text(
+                    "スタンプラリーシート",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -356,14 +357,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Image.asset(
                               'assets/stamp_back.png',
-                              width: 100,
-                              height: 100,
+                              width: 80,
+                              height: 80,
                             ),
                             if (acheck == true)
                               Image.asset(
                                 'assets/stamp_gymlabo.png',
-                                width: 100,
-                                height: 100,
+                                width: 80,
+                                height: 80,
                               ),
                           ],
                         ),
@@ -373,14 +374,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Image.asset(
                               'assets/stamp_back.png',
-                              width: 100,
-                              height: 100,
+                              width: 80,
+                              height: 80,
                             ),
                             if (bcheck == true)
                               Image.asset(
                                 'assets/stamp_cafeteria.png',
-                                width: 100,
-                                height: 100,
+                                width: 80,
+                                height: 80,
                               ),
                           ],
                         ),
@@ -390,14 +391,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Image.asset(
                               'assets/stamp_back.png',
-                              width: 100,
-                              height: 100,
+                              width: 80,
+                              height: 80,
                             ),
                             if (ccheck == true)
                               Image.asset(
                                 'assets/stamp_main_gage.png',
-                                width: 100,
-                                height: 100,
+                                width: 80,
+                                height: 80,
                               ),
                           ],
                         ),
@@ -412,14 +413,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Image.asset(
                               'assets/stamp_back.png',
-                              width: 100,
-                              height: 100,
+                              width: 80,
+                              height: 80,
                             ),
                             if (dcheck == true)
                               Image.asset(
                                 'assets/stamp_library.png',
-                                width: 100,
-                                height: 100,
+                                width: 80,
+                                height: 80,
                               ),
                           ],
                         ),
@@ -429,14 +430,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Image.asset(
                               'assets/stamp_back.png',
-                              width: 100,
-                              height: 100,
+                              width: 80,
+                              height: 80,
                             ),
                             if (echeck == true)
                               Image.asset(
                                 'assets/stamp_proken.png',
-                                width: 100,
-                                height: 100,
+                                width: 80,
+                                height: 80,
                               ),
                           ],
                         ),
@@ -446,14 +447,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Image.asset(
                               'assets/stamp_back.png',
-                              width: 100,
-                              height: 100,
+                              width: 80,
+                              height: 80,
                             ),
                             if (fcheck == true)
                               Image.asset(
                                 'assets/stamp_bronze_statue.png',
-                                width: 100,
-                                height: 100,
+                                width: 80,
+                                height: 80,
                               ),
                           ],
                         ),
@@ -468,14 +469,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Image.asset(
                               'assets/stamp_back.png',
-                              width: 100,
-                              height: 100,
+                              width: 80,
+                              height: 80,
                             ),
                             if (gcheck == true)
                               Image.asset(
                                 'assets/stamp_memorial_museum.png',
-                                width: 100,
-                                height: 100,
+                                width: 80,
+                                height: 80,
                               ),
                           ],
                         ),
@@ -485,14 +486,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Image.asset(
                               'assets/stamp_back.png',
-                              width: 100,
-                              height: 100,
+                              width: 80,
+                              height: 80,
                             ),
                             if (hcheck == true)
                               Image.asset(
                                 'assets/stamp_healthCenter.png',
-                                width: 100,
-                                height: 100,
+                                width: 80,
+                                height: 80,
                               ),
                           ],
                         ),
@@ -502,14 +503,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Image.asset(
                               'assets/stamp_back.png',
-                              width: 100,
-                              height: 100,
+                              width: 80,
+                              height: 80,
                             ),
                             if (icheck == true)
                               Image.asset(
                                 'assets/stamp_auditorium.png',
-                                width: 100,
-                                height: 100,
+                                width: 80,
+                                height: 80,
                               ),
                           ],
                         ),
@@ -517,22 +518,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     const SizedBox(height: 20),
                     const Text(
-                      'ビンゴできたら景品ゲット！！\nビンゴすればするほど景品が豪華になるかも!？',
+                      'ビンゴできたら景品ゲット！！\nビンゴすればするほど\n景品が豪華になるかも!？',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16),
                     ),
-                  ],
-                ),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'Cancel'),
-                    child: const Text(
-                      '戻る',
-                      textAlign: TextAlign.center,
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      child: const Text(
+                        '戻る',
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                );
+              },
             ),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
             child: const Text(
@@ -562,9 +561,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   context: context,
                   builder: (BuildContext context) {
                     return SimpleDialog(
-                      title: const Text('C-2C プロ研展示',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      title: const Text(
+                        'C-2C プロ研展示',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       children: <Widget>[
                         const Text("最後はここに来てね！",
                             textAlign: TextAlign.center,
