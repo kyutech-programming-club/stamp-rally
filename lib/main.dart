@@ -93,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool? hcheck;
   bool? icheck;
   List<String>? contextList;
+  List<double> distances = [];
 
   static const stamp_position = [
     [33.89622708644376, 130.83947266423812], //正門
@@ -113,6 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     signInAnonymously();
+    getStampData();
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => _showStartDialog(),
     );
@@ -159,7 +161,11 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void Sign() {
+  void getStampData() {
+    if (uid == null) {
+      print('ユーザーがサインインしていません');
+      return;
+    }
     // ここでFirestoreからデータを取得し、各ドキュメントに対して処理を行います
     FirebaseFirestore.instance
         .collection('dream')
@@ -183,32 +189,31 @@ class _MyHomePageState extends State<MyHomePage> {
   void Finddate(contextdate) {
     if (contextdate != null) {
       for (String d in contextdate ?? []) {
-        if (d == "a") {
+        if (d == StampEnum.gimulabo.displayName) {
           acheck = true;
-          print("asdfvgk,h");
         }
-        if (d == "b") {
+        if (d == StampEnum.syokudou.displayName) {
           bcheck = true;
         }
-        if (d == "c") {
+        if (d == StampEnum.seimon.displayName) {
           ccheck = true;
         }
-        if (d == "d") {
+        if (d == StampEnum.tosyokan.displayName) {
           dcheck = true;
         }
-        if (d == "e") {
+        if (d == StampEnum.proken.displayName) {
           echeck = true;
         }
-        if (d == "f") {
+        if (d == StampEnum.douzou.displayName) {
           fcheck = true;
         }
-        if (d == "g") {
+        if (d == StampEnum.hyakunen.displayName) {
           gcheck = true;
         }
-        if (d == "h") {
+        if (d == StampEnum.hoken.displayName) {
           hcheck = true;
         }
-        if (d == "i") {
+        if (d == StampEnum.kinen.displayName) {
           icheck = true;
         }
       }
@@ -616,7 +621,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("九工大生の多くが登校してくる場所。\n入学当初はみんなここで写真撮るよ!",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                          Image.asset('assets/main_gate.jpg'),
+                        Image.asset('assets/main_gate.jpg'),
                       ],
                     );
                   },
@@ -643,7 +648,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             "九工大の保健室。\n工大祭中に怪我をしたり\n体調が悪くなったりしたら\nここに行こう。",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                          Image.asset('assets/helethCenter.jpg'),
+                        Image.asset('assets/helethCenter.jpg'),
                       ],
                     );
                   },
@@ -669,7 +674,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("勉強場所の定番。\n専門書など、普通の図書館にはない本がいっぱい!",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                          Image.asset('assets/library.jpg'),
+                        Image.asset('assets/library.jpg'),
                       ],
                     );
                   },
@@ -695,7 +700,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("九工大生の昼食スポット。\n週ごとにメニューが変わるよ。",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                         Image.asset('assets/cafeteria.jpg'),
+                        Image.asset('assets/cafeteria.jpg'),
                       ],
                     );
                   },
@@ -721,7 +726,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("モチーフは九工大に超ゆかりがある人!?\n詳細は銅像の前の説明文をチェック!",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                          Image.asset('assets/bronze_statue.jpg'),
+                        Image.asset('assets/bronze_statue.jpg'),
                       ],
                     );
                   },
@@ -747,7 +752,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("復刻ノオトや文教祭が開催中!\nピアノ関連のイベントも開催中!\nぜひ参加してね",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                          Image.asset('assets/gymlabo.jpg'),
+                        Image.asset('assets/gymlabo.jpg'),
                       ],
                     );
                   },
@@ -773,7 +778,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("大学の歴史の資料が展示されています。",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                          Image.asset('assets/memorial_museum.jpg'),
+                        Image.asset('assets/memorial_museum.jpg'),
                       ],
                     );
                   },
@@ -791,92 +796,137 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Future(() async {
-            LocationPermission permission = await Geolocator.checkPermission();
-            if (permission == LocationPermission.denied) {
-              await Geolocator.requestPermission();
-            }
-            Position position = await Geolocator.getCurrentPosition();
-
-            int i = 0;
-            int k = 0;
-            for (final stamp in stamp_position) {
-              i = i + 1;
-              double distncce = distanceBetween(
-                  position.latitude, position.longitude, stamp[0], stamp[1]);
-              if (distncce <= 5) {
+          int k = 0;
+          for (final stamp in StampEnum.values) {
+            double distncce = distanceBetween(position?.latitude ?? 0,
+                position?.longitude ?? 0, stamp.position[0], stamp.position[1]);
+            if (distncce <= 8) {
+              // if (i == 1) {
+              //    saveUserData("a");
+              // } else if (i == 2) {
+              //    saveUserData("b");
+              // } else if (i == 3) {
+              //    saveUserData("c");
+              // } else if (i == 4) {
+              //    saveUserData("d");
+              // } else if (i == 5) {
+              //    saveUserData("e");
+              // } else if (i == 6) {
+              //    saveUserData("f");
+              // } else if (i == 7) {
+              //    saveUserData("g");
+              // } else if (i == 8) {
+              //    saveUserData("h");
+              // } else if (i == 9) {
+              //    saveUserData("i");
+              // }
+              saveUserData(stamp.displayName);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    backgroundColor: const Color(0xFF5592B4),
+                    title: Image.asset(
+                      stamp.imagePath,
+                      width: 100,
+                      height: 100,
+                    ),
+                    content: const Text(
+                      'スタンプ\nGET',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.white,
+                      ),
+                    ),
+                  );
+                },
+              );
+            } else {
+              k += 1;
+              if (k == 9) {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      backgroundColor: const Color(0xFF5592B4),
-                      title: Image.asset(
-                        'assets/dialog_check.png',
-                        width: 100,
-                        height: 100,
-                      ),
-                      content: const Text(
-                        'スタンプ\nGET',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
+                        backgroundColor: const Color(0xFF5592B4),
+                        title: Image.asset(
+                          'assets/dialog_error.png',
+                          width: 100,
+                          height: 100,
                         ),
-                      ),
-                    );
+                        content: const Text(
+                          '目的地から離れています\nもう少し近づいてください',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ));
                   },
                 );
-                if (i == 1) {
-                  await saveUserData("a");
-                } else if (i == 2) {
-                  await saveUserData("b");
-                } else if (i == 3) {
-                  await saveUserData("c");
-                } else if (i == 4) {
-                  await saveUserData("d");
-                } else if (i == 5) {
-                  await saveUserData("e");
-                } else if (i == 6) {
-                  await saveUserData("f");
-                } else if (i == 7) {
-                  await saveUserData("g");
-                } else if (i == 8) {
-                  await saveUserData("h");
-                } else if (i == 9) {
-                  await saveUserData("i");
-                }
-              } else {
-                k += 1;
-                if (k == 9) {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                          backgroundColor: const Color(0xFF5592B4),
-                          title: Image.asset(
-                            'assets/dialog_error.png',
-                            width: 100,
-                            height: 100,
-                          ),
-                          content: const Text(
-                            '目的地から離れています\nもう少し近づいてください',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                          ));
-                    },
-                  );
-                }
               }
             }
-            Sign();
-          });
+          }
+          getStampData();
         },
         backgroundColor: const Color(0xFF5592B4),
         child: const Image(image: AssetImage('assets/floating_image.png')),
       ),
     );
   }
+}
+
+enum StampEnum {
+  kinen(
+    '記念講堂',
+    [33.89530804544407, 130.84005321430428],
+    'assets/stamp_auditorium.png',
+  ),
+  douzou(
+    '銅像',
+    [33.89562274517045, 130.8397637738136],
+    'assets/stamp_bronze_statue.png',
+  ),
+  syokudou(
+    '食堂',
+    [33.89361218258276, 130.8391702393],
+    'assets/stamp_cafeteria.png',
+  ),
+  seimon(
+    '正門',
+    [33.89622708644376, 130.83947266423812],
+    'assets/stamp_main_gage.png',
+  ),
+  tosyokan(
+    '図書館',
+    [33.89428200032459, 130.8401130290263],
+    'assets/stamp_library.png',
+  ),
+  proken(
+    'プロ研',
+    [33.89424092156493, 130.8391409544224],
+    'assets/stamp_proken.png',
+  ),
+  hoken(
+    '保健センター',
+    [33.89425708935455, 130.83870339261978],
+    'assets/stamp_healthCenter.png',
+  ),
+  gimulabo(
+    'GYMLABO',
+    [33.890949698331966, 130.8392117562366],
+    'assets/stamp_gymlabo.png',
+  ),
+  hyakunen(
+    '中村記念館',
+    [33.89474550776414, 130.84002775948636],
+    'assets/stamp_memorial_museum.png',
+  );
+
+  const StampEnum(this.displayName, this.position, this.imagePath);
+
+  final String displayName;
+  final List<double> position;
+  final String imagePath;
 }
