@@ -570,7 +570,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("最後はここに来てね！",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                        Image.asset('assets/proken.png'),
+                        Image.asset('assets/proken.jpg'),
                       ],
                     );
                   },
@@ -596,7 +596,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("土曜日には声優トークショーが開催！",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                        Image.asset('images/auditorium.jpg'),
+                        Image.asset('assets/auditorium.jpg'),
                       ],
                     );
                   },
@@ -649,7 +649,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             "九工大の保健室。\n工大祭中に怪我をしたり\n体調が悪くなったりしたら\nここに行こう。",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18)),
-                        Image.asset('assets/helethCenter.jpg'),
+                        Image.asset('assets/healthCenter.jpg'),
                       ],
                     );
                   },
