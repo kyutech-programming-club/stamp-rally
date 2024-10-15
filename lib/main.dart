@@ -396,7 +396,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             if (ccheck == true)
                               Image.asset(
-                                'assets/stamp_main_gage.png',
+                                'assets/stamp_main_gate.png',
                                 width: 80,
                                 height: 80,
                               ),
@@ -897,7 +897,7 @@ enum StampEnum {
   seimon(
     '正門',
     [33.89622708644376, 130.83947266423812],
-    'assets/stamp_main_gage.png',
+    'assets/stamp_main_gate.png',
   ),
   tosyokan(
     '図書館',
